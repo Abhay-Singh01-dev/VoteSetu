@@ -5,6 +5,8 @@ import { WebSocketServer, WebSocket } from "ws";
 import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
+import helmet from "helmet";
+import rateLimit from "express-rate-limit";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 // Load dotenv only in development
@@ -16,44 +18,29 @@ if (process.env.NODE_ENV !== "production") {
 const app = express();
 const server = createServer(app);
 const MAX_MESSAGE_CHARS = 2000;
-const RATE_LIMIT_WINDOW_MS = 60_000;
-const RATE_LIMIT_MAX_REQUESTS = 30;
-const requestLog = new Map<string, number[]>();
+const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000; // 15 minutes
+const RATE_LIMIT_MAX_REQUESTS = 50;
 
-function getClientIp(req: Request): string {
-  const forwarded = req.headers["x-forwarded-for"];
-  if (typeof forwarded === "string" && forwarded.length > 0) {
-    return forwarded.split(",")[0]?.trim() || "unknown";
-  }
-  return req.socket.remoteAddress || "unknown";
-}
-
-function isRateLimited(clientId: string): boolean {
-  const now = Date.now();
-  const current = requestLog.get(clientId) ?? [];
-  const recent = current.filter((t) => now - t < RATE_LIMIT_WINDOW_MS);
-  if (recent.length >= RATE_LIMIT_MAX_REQUESTS) {
-    requestLog.set(clientId, recent);
-    return true;
-  }
-  recent.push(now);
-  requestLog.set(clientId, recent);
-  return false;
-}
+const chatLimiter = rateLimit({
+  windowMs: RATE_LIMIT_WINDOW_MS,
+  max: RATE_LIMIT_MAX_REQUESTS,
+  message: { error: "Too many requests. Please try again shortly." },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
 
 // Essential middleware
-app.disable("x-powered-by");
+app.use(helmet({
+  contentSecurityPolicy: false, // Disabled for React development mode (Vite HMR)
+  crossOriginEmbedderPolicy: false
+}));
+
 app.use(cors({
   origin: process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(",").map((v) => v.trim()) : true,
   methods: ["GET", "POST"],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json({ limit: "256kb" }));
-app.use((req, res, next) => {
-  res.setHeader("X-Content-Type-Options", "nosniff");
-  res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
-  res.setHeader("X-Frame-Options", "DENY");
-  next();
-});
 
 // Legacy/Basic WebSocket setup
 const legacyWss = new WebSocketServer({ noServer: true });
@@ -102,12 +89,8 @@ server.on("upgrade", (request, socket, head) => {
 
 
 // API Routes
-app.post("/api/chat", async (req, res) => {
+app.post("/api/chat", chatLimiter, async (req, res) => {
   try {
-    const clientIp = getClientIp(req);
-    if (isRateLimited(clientIp)) {
-      return res.status(429).json({ error: "Too many requests. Please try again shortly." });
-    }
 
     const message = typeof req.body?.message === "string" ? req.body.message.trim() : "";
     if (!message) {

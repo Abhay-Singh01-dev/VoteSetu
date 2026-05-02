@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { MessageCircle, Send, X, Sparkles, Mic, Loader2, Volume2, Square } from "lucide-react";
@@ -593,4 +593,4 @@ const ChatAssistant = ({ open, onOpenChange, liveAgentOpen, onLiveAgentOpenChang
   );
 };
 
-export default ChatAssistant;
+export default React.memo(ChatAssistant);

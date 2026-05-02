@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import Hero from "@/components/Hero";
 import UserJourneyMap from "@/components/UserJourneyMap";
@@ -17,7 +17,6 @@ import { Vote, FileDown, User, Mic } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useT } from "@/i18n/LanguageProvider";
 import { useUser } from "@/context/UserContext";
-import { useEffect } from "react";
 
 const Index = () => {
   const [chatOpen, setChatOpen] = useState(false);
@@ -30,9 +29,9 @@ const Index = () => {
     setUser({ currentScreen: "hero" });
   }, [setUser]);
 
-  const scrollTo = (id: string) => {
+  const scrollTo = useCallback((id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-  };
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">
@@ -189,4 +188,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default React.memo(Index);

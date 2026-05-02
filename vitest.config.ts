@@ -13,6 +13,16 @@ export default defineConfig({
       provider: "v8",
       reporter: ["text", "html"],
       reportsDirectory: "./coverage",
+      all: true,
+      include: ["src/**/*.{ts,tsx}"],
+      exclude: [
+        "src/components/ui/**", // Exclude shadcn UI generic components
+        "src/main.tsx",
+        "src/vite-env.d.ts",
+        "src/index.ts", // Exclude express backend from frontend tests
+        "**/*.d.ts",
+        "src/test/**"
+      ],
       thresholds: {
         statements: 80,
         branches: 70,
