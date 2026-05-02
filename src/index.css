@@ -1,0 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* India Election Assistant — Design System
+   All colors HSL. Inspired by the tricolour with a calm, civic palette. */
+
+@layer base {
+  :root {
+    --background: 36 40% 98%;
+    --foreground: 222 30% 14%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 30% 14%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 30% 14%;
+
+    /* India saffron */
+    --primary: 24 92% 52%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 28 100% 64%;
+
+    /* Calm neutral */
+    --secondary: 220 30% 96%;
+    --secondary-foreground: 222 30% 14%;
+
+    --muted: 220 25% 95%;
+    --muted-foreground: 220 12% 42%;
+
+    /* Ashoka navy / India green accent */
+    --accent: 222 67% 30%;
+    --accent-foreground: 0 0% 100%;
+
+    --success: 142 55% 38%;
+    --success-foreground: 0 0% 100%;
+
+    --destructive: 0 78% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 18% 88%;
+    --input: 220 18% 88%;
+    --ring: 24 92% 52%;
+
+    --radius: 0.85rem;
+
+    /* Brand colours */
+    --saffron: 24 92% 52%;
+    --india-green: 142 55% 38%;
+    --ashoka: 222 67% 30%;
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(var(--saffron)) 0%, hsl(28 100% 64%) 50%, hsl(var(--india-green)) 100%);
+    --gradient-tricolor: linear-gradient(90deg, hsl(var(--saffron)) 0%, hsl(0 0% 100%) 50%, hsl(var(--india-green)) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(36 40% 99%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(var(--ashoka)) 0%, hsl(222 67% 45%) 100%);
+    --gradient-glow: radial-gradient(circle at 50% 0%, hsl(28 100% 64% / 0.25), transparent 60%);
+
+    /* Shadows */
+    --shadow-soft: 0 4px 20px -8px hsl(222 30% 14% / 0.12);
+    --shadow-elegant: 0 18px 48px -18px hsl(24 92% 52% / 0.35);
+    --shadow-glow: 0 0 60px hsl(28 100% 64% / 0.45);
+    --shadow-ring: 0 0 0 4px hsl(24 92% 52% / 0.15);
+
+    /* Motion */
+    --transition-smooth: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222 35% 8%;
+    --foreground: 36 30% 96%;
+    --card: 222 30% 11%;
+    --card-foreground: 36 30% 96%;
+    --popover: 222 30% 11%;
+    --popover-foreground: 36 30% 96%;
+    --primary: 24 92% 56%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 222 25% 16%;
+    --secondary-foreground: 36 30% 96%;
+    --muted: 222 25% 16%;
+    --muted-foreground: 220 12% 65%;
+    --accent: 222 67% 55%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 78% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 222 25% 20%;
+    --input: 222 25% 20%;
+    --ring: 24 92% 56%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer utilities {
+  .bg-gradient-hero { background: var(--gradient-hero); }
+  .bg-gradient-tricolor { background: var(--gradient-tricolor); }
+  .bg-gradient-card { background: var(--gradient-card); }
+  .bg-gradient-accent { background: var(--gradient-accent); }
+  .bg-gradient-glow { background: var(--gradient-glow); }
+  .text-gradient {
+    background: var(--gradient-hero);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .shadow-soft { box-shadow: var(--shadow-soft); }
+  .shadow-elegant { box-shadow: var(--shadow-elegant); }
+  .shadow-glow { box-shadow: var(--shadow-glow); }
+  .transition-smooth { transition: var(--transition-smooth); }
+  .transition-bounce { transition: var(--transition-bounce); }
+}
+
+@layer components {
+  .tricolor-bar {
+    height: 4px;
+    background: var(--gradient-tricolor);
+    border-radius: 9999px;
+  }
+}

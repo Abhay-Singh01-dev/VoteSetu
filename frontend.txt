@@ -1,0 +1,100 @@
+VoteSetu Frontend Documentation
+===============================
+
+Project Overview
+----------------
+VoteSetu is a state-driven intelligent assistant interface built with Vite, React, and TypeScript. It transforms the static informational process of explaining Indian elections into a personalized, step-by-step guidance system. The application tracks user progress (age, registration status, EPIC possession) and dynamically tailors its UI components—Timeline, Voter Journey, Hero, and Chat—to guide the user towards voting eligibility.
+
+The project is located at:
+c:\Users\abhay\Desktop\AI\VoteSetu
+
+Main Frontend Stack
+-------------------
+- React 18: UI rendering and state management.
+- TypeScript: Type-safe codebase with strictly defined voter state.
+- Tailwind CSS: Dynamic styling and theme-ready architecture.
+- shadcn/ui (Radix): Premium UI primitives (Dialogs, Tooltips, Accordions).
+- React Context: Centralized user session management.
+- Vite: High-performance development and bundling.
+- Lucide React: Modern icon set.
+- jsPDF: Client-side PDF generation (lazy-loaded).
+
+State-Driven Architecture
+-------------------------
+The application transitioned into a proactive, predictive decision-support system via four core pillars:
+
+1. Global User State & Memory Intelligence (src/context/UserContext.tsx)
+   - Manages personal voter data: `age`, `isRegistered`, `hasEpic`, `completedSteps`.
+   - Tracks `skippedSteps` to maintain interaction memory and trigger smart nudges.
+   - Persisted safely to localStorage.
+
+2. Next-Step & Predictive Insights Engine
+   - `src/lib/nextStep.ts`: Determines baseline priority sequence (Eligibility -> Registration -> EPIC -> Booth).
+   - `src/lib/userInsights.ts`: Pure, deterministic engine deriving deep analytics.
+     - Calculates `confidenceScore` (0-100) based on critical milestones.
+     - Detects top risks (e.g., underage, unregistered) with dynamic urgency mapping (`critical`, `warning`, `info`).
+     - Provides clear, actionable `suggestions`.
+
+3. Context-Aware UI Components
+   - Hero (Command Center): Progressive disclosure displaying the Preparation Score bar, top risk, and an active priority CTA.
+   - User Journey Map: Above-the-fold visual node map showing clear active/blocked paths.
+   - Timeline: Highlights relevant current phases and dims future ones.
+   - Voter Journey: Features detailed step-by-step state logic.
+
+Key Features & Components
+-------------------------
+1. User Profile Dialog (src/components/UserProfileDialog.tsx)
+   - Auto-prompts users on their first visit (once per session) to set details.
+   
+2. Voting Simulation (src/components/VotingSimulation.tsx)
+   - Adaptive, interactive 4-step simulator.
+   - Branches dynamically: explicitly blocks unregistered users from starting, and changes text based on EPIC status.
+
+3. Interactive Chat Agent (src/components/ChatAssistant.tsx)
+   - Linear conversational flow capable of dynamically querying the user (e.g. asking age) and dispatching updates directly to the Context.
+   - Gracefully falls back to knowledge-base matching.
+
+4. Micro-Action Status Warnings (src/components/StatusWarnings.tsx)
+   - Consumes deterministic insights to project urgency via color-coded alerts.
+   - Replaces passive text with direct micro-action buttons ("Start registration", "Download e-EPIC").
+   - Ties into Memory Intelligence by tracking dismissed critical alerts.
+
+5. Voter Journey (src/components/VoterJourney.tsx)
+   - Interactive checklist that tracks 6 key milestones.
+   - Merges manual completions with derived logic (e.g., age validation automatically completes Step 1).
+
+6. EPIC Validator (src/components/EpicValidator.tsx)
+   - Advanced format checker for Indian Voter IDs.
+   - Side-effect: Successfully validating an EPIC format automatically updates the user's global `hasEpic` state.
+
+Internationalization
+--------------------
+- Handled by src/i18n/LanguageProvider.tsx.
+- Supports full UI translation and localized guide content (Hindi, English, etc.).
+- Persists language choice to localStorage.
+- Automatically handles RTL direction if required.
+
+Technical Verification
+----------------------
+The project maintains strict quality standards:
+- TypeScript: 0 errors (tsc --noEmit).
+- ESLint: 0 warnings.
+- Performance: Chunk splitting for large libraries (Radix, PDF, etc.).
+- Accessibility: ARIA roles, skip-links, and keyboard navigation for all interactive sections.
+
+Build & Development
+-------------------
+- npm run dev: Starts Vite server on port 8080.
+- npm run build: Optimizes the application for production (dist/).
+- npm run test: Executes the Vitest suite.
+
+Current Frontend Workflow
+-------------------------
+1. User enters site -> UserProvider loads state from localStorage.
+2. If state is empty -> UserProfileDialog auto-opens to collect basic voter info.
+3. StatusWarnings and Hero project the user's current electoral standing.
+4. Timeline and Voter Journey adapt icons, badges, and progress based on context.
+5. User interacts with Chat or Simulation -> global state evolves.
+6. Progress is persisted automatically for the next visit.
+
+This documentation reflects the transformation into an intelligent, state-aware electoral guide.
