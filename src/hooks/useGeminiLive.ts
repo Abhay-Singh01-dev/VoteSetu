@@ -138,6 +138,30 @@ export const useGeminiLive = (open: boolean, isMuted: boolean, config: GeminiLiv
     }
   }, [isMuted, sendVisionFrame]);
 
+  const stopLiveSession = useCallback(() => {
+    setIsActive(false);
+    setIsConnecting(false);
+    audioQueueRef.current = [];
+    isPlayingRef.current = false;
+    
+    if (wsRef.current) {
+      wsRef.current.close();
+      wsRef.current = null;
+    }
+    if (processorRef.current) {
+      processorRef.current.disconnect();
+      processorRef.current = null;
+    }
+    if (audioContextRef.current) {
+      audioContextRef.current.close();
+      audioContextRef.current = null;
+    }
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach(t => t.stop());
+      streamRef.current = null;
+    }
+  }, []);
+
   const startLiveSession = useCallback(async () => {
     setIsConnecting(true);
     try {
@@ -186,30 +210,6 @@ export const useGeminiLive = (open: boolean, isMuted: boolean, config: GeminiLiv
       setIsConnecting(false);
     }
   }, [config, startMediaCapture, playOutputAudio, stopLiveSession]);
-
-  const stopLiveSession = useCallback(() => {
-    setIsActive(false);
-    setIsConnecting(false);
-    audioQueueRef.current = [];
-    isPlayingRef.current = false;
-    
-    if (wsRef.current) {
-      wsRef.current.close();
-      wsRef.current = null;
-    }
-    if (processorRef.current) {
-      processorRef.current.disconnect();
-      processorRef.current = null;
-    }
-    if (audioContextRef.current) {
-      audioContextRef.current.close();
-      audioContextRef.current = null;
-    }
-    if (streamRef.current) {
-      streamRef.current.getTracks().forEach(t => t.stop());
-      streamRef.current = null;
-    }
-  }, []);
 
   useEffect(() => {
     if (open && !isActive && !isConnecting) {
