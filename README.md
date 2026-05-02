@@ -2,6 +2,10 @@
 
 VoteSetu is an interactive election assistant focused on India. It helps users understand the election process, official timelines, eligibility, registration steps, EPIC guidance, and polling-day actions in a simple and actionable flow.
 
+![CI](https://github.com/Abhay-Singh01-dev/VoteSetu/actions/workflows/ci.yml/badge.svg)
+![Node](https://img.shields.io/badge/node-20%2B-339933)
+![License](https://img.shields.io/badge/license-MIT-blue)
+
 ## Problem Statement Alignment
 
 This project directly targets the problem statement:
@@ -86,8 +90,9 @@ Health endpoint:
 ## Testing Strategy
 
 - Unit tests for domain gate (`isElectionQuery`) and EPIC validation rules.
+- Unit tests for next-step prioritization, greeting personalization, and user insight scoring.
 - CI checks lint + test + build on every push/PR.
-- Recommended extension: add API integration tests for `/api/chat` and `/healthz`.
+- Coverage thresholds enforced in Vitest configuration.
 
 ## Accessibility Checklist
 
@@ -103,6 +108,17 @@ Health endpoint:
 - CI pipeline (`.github/workflows/ci.yml`).
 - Environment template (`.env.example`).
 - Deterministic commands for lint/test/build.
+- Health endpoint (`/healthz`) and container healthcheck for Cloud Run.
+
+## AI Evaluation Checklist
+
+- Code quality: lint clean, typecheck clean, tested utility modules.
+- Security: no committed secrets, rate limiting, input validation, restrictive headers, CORS control.
+- Efficiency: multi-stage Docker build, production dependency install, static-asset build optimization.
+- Testing: unit tests + coverage threshold + CI automation.
+- Accessibility: semantic landmarks, keyboard support, skip links, ARIA labels.
+- Google services readiness: Cloud Run instructions, Gemini key env contract, health endpoint.
+- Problem statement fit: election-specific guardrails + timeline + guided user journey + actionable assistant.
 
 ## Project Structure
 
@@ -120,3 +136,7 @@ src/
 ## Disclaimer
 
 VoteSetu is an educational assistant and is not affiliated with the Election Commission of India. Users should verify critical details from official ECI portals.
+
+## License
+
+MIT

@@ -5,7 +5,7 @@ WORKDIR /app
 
 # Install all dependencies (including dev tools for build)
 COPY package*.json ./
-RUN npm install
+RUN npm ci
 
 # Copy source code
 COPY . .
@@ -29,6 +29,12 @@ COPY --from=builder /app/dist ./dist
 ENV NODE_ENV=production
 ENV PORT=8080
 
+# Run as non-root user for better container hardening
+USER node
+
 EXPOSE 8080
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
+  CMD wget -qO- "http://127.0.0.1:${PORT}/healthz" || exit 1
 
 CMD ["npm", "start"]
