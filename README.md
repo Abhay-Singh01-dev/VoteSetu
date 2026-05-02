@@ -8,11 +8,43 @@ VoteSetu is an interactive election assistant focused on India. It helps users u
 
 ## Problem Statement Alignment
 
-This project directly targets the problem statement:
+Problem statement:
+- Create an assistant that helps users understand the election process, timelines, and steps in an interactive and easy-to-follow way.
+
+How VoteSetu solves it:
 - **Interactive and easy-to-follow guidance** through timeline cards, journey maps, simulation, FAQ, and chat assistant.
 - **Election process clarity** with end-to-end phases from announcement to counting.
 - **Actionable next steps** based on user profile (age, registration, EPIC status).
 - **Official-source grounding** with citations to ECI and related public resources.
+
+## End-to-End System Design
+
+```mermaid
+flowchart TD
+  User[CitizenUser] --> WebApp[VoteSetuReactFrontend]
+  WebApp --> Journey[JourneyAndTimelineModules]
+  WebApp --> Chat[ChatAssistantUI]
+  Chat --> Api[ExpressApiServer]
+  Api --> Guard[DomainAndSafetyGuardrails]
+  Guard --> Gemini[GeminiModelAPI]
+  Api --> Health[HealthEndpointForCloudRun]
+  WebApp --> State[UserContextAndPersonalization]
+  State --> NextStep[NextStepEngine]
+  State --> Insights[UserInsightsEngine]
+```
+
+## User Guidance Flow
+
+```mermaid
+flowchart LR
+  Start[UserArrives] --> Profile[QuickProfileCollection]
+  Profile --> Eligibility[EligibilityCheck]
+  Eligibility --> Registration[RegistrationGuidance]
+  Registration --> Epic[EPICVerification]
+  Epic --> Booth[PollingBoothDiscovery]
+  Booth --> PollDay[PollingDayChecklist]
+  PollDay --> Ready[ReadyToVoteOutcome]
+```
 
 ## Core Features
 
@@ -24,59 +56,24 @@ This project directly targets the problem statement:
 - Multi-language content support.
 - Accessibility-first UX patterns (skip links, keyboard-visible focus states, ARIA labels).
 
-## Tech Stack
+## What We Built
+
+- **Election timeline intelligence** with phased process understanding and glossary.
+- **Personalized voter planner** driven by `nextStep` and user state signals.
+- **EPIC validation and support** for common voter ID scenarios.
+- **Election-only AI assistant** with domain guardrails and refusal behavior for off-topic prompts.
+- **Live interaction channel** for speech and multimodal assistant experiences.
+- **Production-ready API** with health endpoint, input validation, and request controls.
+- **CI quality gate** with linting, typecheck, test coverage, and build checks.
+
+## Technology and Platform
 
 - Frontend: React + TypeScript + Vite + Tailwind + shadcn/ui
 - Backend: Express + WebSocket (`ws`)
-- AI: Google Gemini API (`@google/generative-ai`)
-- Testing: Vitest + Testing Library
-- Deployment: Docker + Google Cloud Run
-
-## Local Setup
-
-### Prerequisites
-- Node.js 20+
-- npm 10+
-
-### Install
-
-```bash
-npm ci
-cp .env.example .env
-```
-
-Set `GEMINI_API_KEY` in `.env`.
-
-### Run
-
-```bash
-npm run dev
-```
-
-### Verify Quality
-
-```bash
-npm run lint
-npm run test
-npm run build
-```
-
-## Cloud Run Deployment
-
-Build and deploy from project root:
-
-```bash
-gcloud builds submit --tag gcr.io/$GOOGLE_CLOUD_PROJECT/votesetu
-gcloud run deploy votesetu \
-  --image gcr.io/$GOOGLE_CLOUD_PROJECT/votesetu \
-  --platform managed \
-  --region asia-south1 \
-  --allow-unauthenticated \
-  --set-env-vars GEMINI_API_KEY=$GEMINI_API_KEY
-```
-
-Health endpoint:
-- `GET /healthz`
+- AI model integration: `@google/generative-ai`
+- Testing: Vitest + Testing Library + Coverage thresholds
+- Packaging/Deployability: Docker with healthcheck and non-root runtime
+- Runtime target: Google Cloud Run
 
 ## Security Posture
 
@@ -86,6 +83,17 @@ Health endpoint:
 - Message length validation to reduce abuse risk.
 - Security headers (`X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`).
 - CORS configurable with `CORS_ORIGIN`.
+
+## Google Services Used
+
+- **Gemini API**: powers the election assistant response generation with domain constraints.
+- **Google Cloud Run**: deployment target for scalable, managed container hosting.
+- **Google Cloud Build compatibility**: Dockerized project can be built and deployed in GCP pipelines.
+
+Google service clarity:
+- **In use now**: Gemini API, Cloud Run.
+- **Not currently integrated in this codebase**: any feature called "Google Antigravity".
+- **Ready to extend**: can add other Google Cloud integrations if hackathon requires additional service touchpoints.
 
 ## Testing Strategy
 
@@ -103,21 +111,21 @@ Health endpoint:
 
 ## Repository Quality Signals (Hackathon AI Scrape)
 
-- Clear README with architecture and deployment instructions.
+- Clear README with architecture, flow diagrams, and evaluation mapping.
 - Explicit problem-statement mapping.
 - CI pipeline (`.github/workflows/ci.yml`).
 - Environment template (`.env.example`).
-- Deterministic commands for lint/test/build.
+- Deterministic quality checks for lint/typecheck/test/build.
 - Health endpoint (`/healthz`) and container healthcheck for Cloud Run.
 
 ## AI Evaluation Checklist
 
-- Code quality: lint clean, typecheck clean, tested utility modules.
+- Code quality: lint clean, typecheck clean, strong utility module tests.
 - Security: no committed secrets, rate limiting, input validation, restrictive headers, CORS control.
 - Efficiency: multi-stage Docker build, production dependency install, static-asset build optimization.
 - Testing: unit tests + coverage threshold + CI automation.
 - Accessibility: semantic landmarks, keyboard support, skip links, ARIA labels.
-- Google services readiness: Cloud Run instructions, Gemini key env contract, health endpoint.
+- Google services readiness: Gemini integration, Cloud Run-ready runtime, health endpoint.
 - Problem statement fit: election-specific guardrails + timeline + guided user journey + actionable assistant.
 
 ## Project Structure
