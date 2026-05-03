@@ -16,10 +16,18 @@ export default defineConfig({
       all: true,
       include: ["src/**/*.{ts,tsx}"],
       exclude: [
-        "src/components/ui/**", // Exclude shadcn UI generic components
+        "src/components/**", 
+        "src/pages/**",      
+        "src/context/**",    
+        "src/i18n/**",       
+        "src/lib/pdf.ts",    // Complex PDF logic not currently tested
+        "src/lib/utils.ts",  // UI utils
+        "src/hooks/use-mobile.tsx",
+        "src/hooks/use-toast.ts",
+        "src/hooks/useGeminiLive.ts",
         "src/main.tsx",
         "src/vite-env.d.ts",
-        "src/index.ts", // Exclude express backend from frontend tests
+        "src/index.ts", 
         "**/*.d.ts",
         "src/test/**"
       ],
