@@ -105,7 +105,9 @@ export function createHttpApp(): express.Application {
     try {
       const parsed = chatRequestSchema.safeParse(req.body);
       if (!parsed.success) {
-        return res.status(400).json({ error: parsed.error.issues[0]?.message ?? "Invalid request" });
+        return res
+          .status(400)
+          .json({ error: parsed.error.issues[0]?.message ?? "Invalid request" });
       }
       const { message } = parsed.data;
 

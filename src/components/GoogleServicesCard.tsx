@@ -46,8 +46,8 @@ const GoogleServicesCard = () => {
               Production-backed assistant stack
             </h2>
             <p className="mt-1 text-sm text-muted-foreground">
-              VoteSetu runs in local demo mode and upgrades to Google Gemini plus Google Cloud
-              when deployment secrets are configured.
+              VoteSetu runs in local demo mode and upgrades to Google Gemini plus Google Cloud when
+              deployment secrets are configured.
             </p>
           </div>
           <div
@@ -78,9 +78,7 @@ const GoogleServicesCard = () => {
                 key={item.id}
                 className={cn(
                   "rounded-2xl border p-4 transition-smooth",
-                  item.ready
-                    ? "border-primary/20 bg-primary/5"
-                    : "border-border bg-secondary/40",
+                  item.ready ? "border-primary/20 bg-primary/5" : "border-border bg-secondary/40",
                 )}
               >
                 <div className="flex items-center gap-3">

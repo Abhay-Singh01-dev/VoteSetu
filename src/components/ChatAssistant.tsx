@@ -517,7 +517,9 @@ const ChatAssistant = ({
               <div className="sticky bottom-0 flex justify-center pb-2 animate-in fade-in slide-in-from-bottom-2">
                 <div className="rounded-full bg-primary/10 border border-primary/20 px-4 py-2 flex items-center gap-2 backdrop-blur shadow-soft">
                   <span className="flex h-2 w-2 rounded-full bg-primary animate-ping" />
-                  <span className="text-xs font-medium text-primary">Listening to your question</span>
+                  <span className="text-xs font-medium text-primary">
+                    Listening to your question
+                  </span>
                 </div>
               </div>
             )}
