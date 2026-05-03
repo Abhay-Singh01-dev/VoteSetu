@@ -517,7 +517,7 @@ const ChatAssistant = ({
               <div className="sticky bottom-0 flex justify-center pb-2 animate-in fade-in slide-in-from-bottom-2">
                 <div className="rounded-full bg-primary/10 border border-primary/20 px-4 py-2 flex items-center gap-2 backdrop-blur shadow-soft">
                   <span className="flex h-2 w-2 rounded-full bg-primary animate-ping" />
-                  <span className="text-xs font-medium text-primary">Listening...</span>
+                  <span className="text-xs font-medium text-primary">Listening to your question</span>
                 </div>
               </div>
             )}
@@ -526,7 +526,7 @@ const ChatAssistant = ({
               <div className="sticky bottom-0 flex justify-center pb-2 animate-in fade-in slide-in-from-bottom-2">
                 <div className="rounded-full bg-accent/10 border border-accent/20 px-4 py-2 flex items-center gap-2 backdrop-blur shadow-soft">
                   <Volume2 className="h-4 w-4 text-accent animate-pulse" />
-                  <span className="text-xs font-medium text-accent">Speaking...</span>
+                  <span className="text-xs font-medium text-accent">Speaking the answer</span>
                 </div>
               </div>
             )}
@@ -595,10 +595,10 @@ const ChatAssistant = ({
                   type="button"
                   onClick={() => onLiveAgentOpenChange(true)}
                   className="absolute right-2 flex items-center gap-1.5 rounded-full bg-gradient-to-r from-primary/10 via-primary/20 to-primary/10 px-2.5 py-1 text-[9px] font-bold uppercase tracking-widest text-primary border border-primary/20 transition-all duration-300 hover:scale-105 hover:shadow-md active:scale-95 group"
-                  title="Live Agent"
+                  title="Gemini Live"
                 >
                   <Sparkles className="h-2.5 w-2.5 transition-transform group-hover:rotate-12" />
-                  Live Agent
+                  Gemini Live
                 </button>
               )}
             </div>

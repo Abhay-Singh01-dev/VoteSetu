@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { buildPersonalisedGreeting } from "@/lib/assistant";
-import type { UserState } from "@/context/UserContext";
+import { buildPersonalisedGreeting, getFallbackElectionAnswer } from "@/lib/assistant";
+import type { UserState } from "@/context/userTypes";
 import type { NextStep } from "@/lib/nextStep";
 
 const nextStep: NextStep = {
@@ -32,5 +32,17 @@ describe("buildPersonalisedGreeting", () => {
     expect(greeting).toContain("Register as a voter");
     expect(greeting).toContain("You haven't registered yet");
     expect(greeting).toContain("EPIC not yet verified");
+  });
+});
+
+describe("getFallbackElectionAnswer", () => {
+  it("returns a registration answer for registration queries", () => {
+    expect(getFallbackElectionAnswer("How do I register to vote?")).toContain("Form 6");
+  });
+
+  it("returns a domain-bounded generic answer for unknown election queries", () => {
+    expect(getFallbackElectionAnswer("Tell me something about elections")).toContain(
+      "I can help with voter registration",
+    );
   });
 });

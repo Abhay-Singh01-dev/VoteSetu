@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { getNextStep, isStepComplete } from "@/lib/nextStep";
-import type { UserState } from "@/context/UserContext";
+import type { UserState } from "@/context/userTypes";
 
 const baseUser: UserState = {
   completedSteps: [],

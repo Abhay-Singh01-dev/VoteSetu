@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { X, Mic, MicOff, Glasses } from "lucide-react";
 import { useGeminiLive } from "@/hooks/useGeminiLive";
+import { GOOGLE_GENERATIVE_AI } from "@/lib/googleGemini";
 
 interface LiveAgentPillProps {
   open: boolean;
@@ -20,7 +21,7 @@ const LiveAgentPill = ({ open, onClose }: LiveAgentPillProps) => {
   } = useGeminiLive(open, isMuted, {
     systemInstruction:
       "You are a helpful election assistant for India. Talk ONLY about elections. Be natural, concise, and professional like a real live assistant.",
-    model: "models/gemini-2.0-flash-exp",
+    model: GOOGLE_GENERATIVE_AI.LIVE_MODEL,
   });
 
   const resetInactivity = useCallback(() => {

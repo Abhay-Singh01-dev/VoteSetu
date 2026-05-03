@@ -1,7 +1,7 @@
 // Simplified assistant library — logic moved to Gemini.
 // Phase 11: Cleaned up local mock data.
 
-import type { UserState } from "@/context/UserContext";
+import type { UserState } from "@/context/userTypes";
 import type { NextStep } from "@/lib/nextStep";
 
 export type CitationSource = { label: string; href: string };
@@ -16,6 +16,40 @@ export const suggestedQuestions = [
 ];
 
 export type AssistantReply = { answer: string; sources?: CitationSource[] };
+
+export function getFallbackElectionAnswer(input: string): string {
+  const q = input.toLowerCase();
+
+  if (q.includes("register") || q.includes("form 6")) {
+    return "To register, fill Form 6 on voters.eci.gov.in. You need to be 18 or older, an Indian citizen, and ordinarily resident in your constituency.";
+  }
+
+  if (q.includes("epic") || q.includes("voter id") || q.includes("e-epic")) {
+    return "Your voter ID is called EPIC. If you are already registered, you can search for your record and download e-EPIC from voters.eci.gov.in.";
+  }
+
+  if (q.includes("booth") || q.includes("polling station") || q.includes("where to vote")) {
+    return "Use the official Electoral Search or Voter Services Portal to find your polling booth, part number, and serial number before polling day.";
+  }
+
+  if (q.includes("vvpat") || q.includes("evm")) {
+    return "On polling day, you vote on an EVM and verify the VVPAT slip for 7 seconds. The slip confirms the candidate name and symbol you selected.";
+  }
+
+  if (q.includes("nota")) {
+    return "NOTA lets you reject all listed candidates. It is counted and announced, but it does not trigger a re-poll by itself.";
+  }
+
+  if (q.includes("id") || q.includes("document") || q.includes("aadhaar")) {
+    return "Carry your EPIC if possible. If you do not have it, ECI usually allows alternative photo IDs such as Aadhaar, passport, PAN card, or driving licence, subject to the notified list.";
+  }
+
+  if (q.includes("counting") || q.includes("result")) {
+    return "Counting usually starts with postal ballots and then EVM rounds. Official results are published by the Election Commission after verification.";
+  }
+
+  return "I can help with voter registration, EPIC, polling booths, EVM and VVPAT, accepted IDs, election phases, and polling-day steps. Ask a specific election question and I will guide you.";
+}
 
 /**
  * Builds a personalised opening message by injecting the user's current

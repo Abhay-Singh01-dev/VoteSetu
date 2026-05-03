@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import { GOOGLE_GENERATIVE_AI } from "@/lib/googleGemini";
 
 interface GeminiLiveConfig {
   onAudioOutput?: (base64: string) => void;
@@ -183,7 +184,7 @@ export const useGeminiLive = (open: boolean, isMuted: boolean, config: GeminiLiv
         wsRef.current?.send(
           JSON.stringify({
             setup: {
-              model: config.model || "models/gemini-2.0-flash-exp",
+              model: config.model || GOOGLE_GENERATIVE_AI.LIVE_MODEL,
               generation_config: {
                 response_modalities: ["AUDIO"],
                 speech_config: {

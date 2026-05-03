@@ -5,7 +5,7 @@
  * Evaluates raw UserState to compute confidence scores, risks, suggestions, and urgency.
  */
 
-import type { UserState } from "@/context/UserContext";
+import type { UserState } from "@/context/userTypes";
 import { getNextStep } from "./nextStep";
 
 // ---------------------------------------------------------------------------

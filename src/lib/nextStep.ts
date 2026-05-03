@@ -7,7 +7,7 @@
  * No UI, no side-effects, no external dependencies.
  */
 
-import type { UserState } from "@/context/UserContext";
+import type { UserState } from "@/context/userTypes";
 
 // ---------------------------------------------------------------------------
 // Types

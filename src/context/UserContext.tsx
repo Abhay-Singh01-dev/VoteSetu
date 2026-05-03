@@ -15,33 +15,11 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import type { UserState } from "./userTypes";
 
 // ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------
-
-export type ScreenType =
-  | "hero"
-  | "timeline"
-  | "journey"
-  | "epic"
-  | "chat"
-  | "simulation"
-  | "faq"
-  | "none";
-
-export type UserState = {
-  age?: number;
-  isRegistered?: boolean;
-  hasEpic?: boolean;
-  state?: string;
-  /** IDs of voter-journey steps that the user has explicitly completed. */
-  completedSteps: string[];
-  /** Interaction memory: track steps the user explicitly chose to skip. */
-  skippedSteps: string[];
-  /** Current active screen/section for context-aware assistance. */
-  currentScreen?: ScreenType;
-};
 
 type UserContextValue = {
   user: UserState;

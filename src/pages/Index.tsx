@@ -8,6 +8,7 @@ import EpicHelper from "@/components/EpicHelper";
 import FAQ from "@/components/FAQ";
 import ChatAssistant from "@/components/ChatAssistant";
 import LiveAgentPill from "@/components/LiveAgentPill";
+import GoogleServicesCard from "@/components/GoogleServicesCard";
 import VoterPlanDialog from "@/components/VoterPlanDialog";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import VotingSimulation from "@/components/VotingSimulation";
@@ -117,6 +118,7 @@ const Index = () => {
 
       {/* Phase 11: Global status warnings — rendered below header */}
       <StatusWarnings />
+      <GoogleServicesCard />
 
       <main id="main">
         {/* Phase 6: Hero with voting status card */}
