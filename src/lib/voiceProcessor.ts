@@ -5,11 +5,31 @@
 export function isElectionQuery(query: string): boolean {
   const q = query.toLowerCase();
   const keywords = [
-    "vote", "election", "voter", "epic", "register", "registration", 
-    "booth", "polling", "evm", "vvpat", "mcc", "nomination", 
-    "candidate", "id", "citizen", "age", "18", "identity", 
-    "card", "list", "roll", "government", "parliament", "assembly"
+    "vote",
+    "election",
+    "voter",
+    "epic",
+    "register",
+    "registration",
+    "booth",
+    "polling",
+    "evm",
+    "vvpat",
+    "mcc",
+    "nomination",
+    "candidate",
+    "id",
+    "citizen",
+    "age",
+    "18",
+    "identity",
+    "card",
+    "list",
+    "roll",
+    "government",
+    "parliament",
+    "assembly",
   ];
-  
-  return keywords.some(kw => q.includes(kw));
+
+  return keywords.some((kw) => q.includes(kw));
 }

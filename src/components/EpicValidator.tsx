@@ -1,5 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
-import { CheckCircle2, AlertTriangle, XCircle, Info, ExternalLink, Search, ShieldCheck } from "lucide-react";
+import {
+  CheckCircle2,
+  AlertTriangle,
+  XCircle,
+  Info,
+  ExternalLink,
+  Search,
+  ShieldCheck,
+} from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -10,11 +18,48 @@ import { cn } from "@/lib/utils";
 import SourceList from "@/components/SourceList";
 import { useUser } from "@/context/UserContext";
 
-const STATUS_STYLES: Record<string, { ring: string; text: string; bg: string; Icon: typeof CheckCircle2; key: "epic.input.statusOk" | "epic.input.statusWarn" | "epic.input.statusBad" | "epic.input.statusEmpty" }> = {
-  valid: { ring: "ring-india-green/40", text: "text-india-green", bg: "bg-india-green/10", Icon: CheckCircle2, key: "epic.input.statusOk" },
-  warning: { ring: "ring-amber-500/40", text: "text-amber-600", bg: "bg-amber-500/10", Icon: AlertTriangle, key: "epic.input.statusWarn" },
-  invalid: { ring: "ring-destructive/40", text: "text-destructive", bg: "bg-destructive/10", Icon: XCircle, key: "epic.input.statusBad" },
-  empty: { ring: "ring-border", text: "text-muted-foreground", bg: "bg-secondary/60", Icon: Info, key: "epic.input.statusEmpty" },
+const STATUS_STYLES: Record<
+  string,
+  {
+    ring: string;
+    text: string;
+    bg: string;
+    Icon: typeof CheckCircle2;
+    key:
+      | "epic.input.statusOk"
+      | "epic.input.statusWarn"
+      | "epic.input.statusBad"
+      | "epic.input.statusEmpty";
+  }
+> = {
+  valid: {
+    ring: "ring-india-green/40",
+    text: "text-india-green",
+    bg: "bg-india-green/10",
+    Icon: CheckCircle2,
+    key: "epic.input.statusOk",
+  },
+  warning: {
+    ring: "ring-amber-500/40",
+    text: "text-amber-600",
+    bg: "bg-amber-500/10",
+    Icon: AlertTriangle,
+    key: "epic.input.statusWarn",
+  },
+  invalid: {
+    ring: "ring-destructive/40",
+    text: "text-destructive",
+    bg: "bg-destructive/10",
+    Icon: XCircle,
+    key: "epic.input.statusBad",
+  },
+  empty: {
+    ring: "ring-border",
+    text: "text-muted-foreground",
+    bg: "bg-secondary/60",
+    Icon: Info,
+    key: "epic.input.statusEmpty",
+  },
 };
 
 const EpicValidator = () => {
@@ -35,7 +80,10 @@ const EpicValidator = () => {
 
   // Sanitise as the user types: uppercase, strip non-alphanumeric, cap length
   const onChange = (raw: string) => {
-    const cleaned = raw.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 20);
+    const cleaned = raw
+      .toUpperCase()
+      .replace(/[^A-Z0-9]/g, "")
+      .slice(0, 20);
     setValue(cleaned);
   };
 
@@ -52,7 +100,10 @@ const EpicValidator = () => {
 
       <div className="mt-5 grid gap-3 sm:grid-cols-[1fr,auto]">
         <div className="grid gap-2">
-          <Label htmlFor="epic-input" className="text-xs uppercase tracking-wider text-muted-foreground">
+          <Label
+            htmlFor="epic-input"
+            className="text-xs uppercase tracking-wider text-muted-foreground"
+          >
             {t("epic.input.label")}
           </Label>
           <Input
@@ -97,11 +148,7 @@ const EpicValidator = () => {
         id="epic-status"
         role="status"
         aria-live="polite"
-        className={cn(
-          "mt-5 rounded-2xl p-4 ring-1",
-          styles.bg,
-          styles.ring,
-        )}
+        className={cn("mt-5 rounded-2xl p-4 ring-1", styles.bg, styles.ring)}
       >
         <div className="flex items-start gap-3">
           <StatusIcon className={cn("mt-0.5 h-5 w-5 shrink-0", styles.text)} aria-hidden />
@@ -110,18 +157,31 @@ const EpicValidator = () => {
               {t(styles.key)} · <span className="text-foreground">{result.title}</span>
             </p>
             {result.checklist.length > 0 && (
-              <ul className="mt-3 space-y-2.5" role="list">
+              <ul className="mt-3 space-y-2.5">
                 {result.checklist.map((c) => (
                   <li key={c.label} className="flex items-start gap-2 text-sm">
                     {c.ok ? (
-                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-india-green" aria-hidden />
+                      <CheckCircle2
+                        className="mt-0.5 h-4 w-4 shrink-0 text-india-green"
+                        aria-hidden
+                      />
                     ) : (
-                      <XCircle className="mt-0.5 h-4 w-4 shrink-0 text-destructive/80" aria-hidden />
+                      <XCircle
+                        className="mt-0.5 h-4 w-4 shrink-0 text-destructive/80"
+                        aria-hidden
+                      />
                     )}
                     <div className="min-w-0 flex-1">
-                      <span className={c.ok ? "text-foreground" : "text-muted-foreground"}>{c.label}</span>
+                      <span className={c.ok ? "text-foreground" : "text-muted-foreground"}>
+                        {c.label}
+                      </span>
                       {c.sources && c.sources.length > 0 && (
-                        <SourceList sources={c.sources} hideLabel className="mt-1" citationFor={c.label} />
+                        <SourceList
+                          sources={c.sources}
+                          hideLabel
+                          className="mt-1"
+                          citationFor={c.label}
+                        />
                       )}
                     </div>
                   </li>
@@ -137,7 +197,7 @@ const EpicValidator = () => {
                 <p className="mt-0.5 text-xs text-muted-foreground">
                   {t("epic.input.referenceHelp")}
                 </p>
-                <ul className="mt-3 space-y-3" role="list">
+                <ul className="mt-3 space-y-3">
                   {result.checklist.map((item) => (
                     <li key={item.label} className="rounded-xl bg-secondary/50 p-3">
                       <p className="text-xs font-medium text-foreground">{item.label}</p>

@@ -109,10 +109,8 @@ const GuidedFlow = ({ isOpen, onClose }: GuidedFlowProps) => {
             <div className="flex items-center justify-center gap-3 mb-8">
               <SpeakButton text={q.voice} size="lg" />
             </div>
-            
-            <h2 className="text-3xl md:text-4xl font-display font-bold mb-12">
-              {q.title}
-            </h2>
+
+            <h2 className="text-3xl md:text-4xl font-display font-bold mb-12">{q.title}</h2>
 
             <div className="flex flex-col gap-4">
               <Button

@@ -35,9 +35,7 @@ const Timeline = () => {
   const relevantPhaseId = NEXT_STEP_TO_PHASE[nextStep.id] ?? null;
   const relevantPhaseIndex = useMemo(
     () =>
-      relevantPhaseId !== null
-        ? timelinePhases.findIndex((p) => p.id === relevantPhaseId)
-        : -1,
+      relevantPhaseId !== null ? timelinePhases.findIndex((p) => p.id === relevantPhaseId) : -1,
     [timelinePhases, relevantPhaseId],
   );
 
@@ -67,10 +65,12 @@ const Timeline = () => {
       {/* Personalisation hint */}
       {relevantPhaseIndex !== -1 && (
         <div className="mx-auto mt-6 max-w-3xl flex items-center gap-2 rounded-xl border border-primary/20 bg-primary/5 px-4 py-2.5 text-sm text-primary">
-          <span className="text-base" aria-hidden>📍</span>
+          <span className="text-base" aria-hidden>
+            📍
+          </span>
           <span>
-            <strong>Your current stage:</strong>{" "}
-            {timelinePhases[relevantPhaseIndex]?.title} — highlighted below.
+            <strong>Your current stage:</strong> {timelinePhases[relevantPhaseIndex]?.title} —
+            highlighted below.
           </span>
         </div>
       )}
@@ -168,7 +168,9 @@ const Timeline = () => {
             className="animate-fade-in rounded-3xl border border-border bg-gradient-card p-8 shadow-elegant"
           >
             <div className="flex items-center gap-3">
-              <span className="text-4xl" aria-hidden>{phase.icon}</span>
+              <span className="text-4xl" aria-hidden>
+                {phase.icon}
+              </span>
               <div>
                 <p className="text-xs font-semibold uppercase tracking-wider text-primary">
                   {t("timeline.phaseLabel", { n: active + 1, total: timelinePhases.length })} ·{" "}
@@ -178,7 +180,7 @@ const Timeline = () => {
               </div>
             </div>
             <p className="mt-5 text-foreground/90">{phase.summary}</p>
-            <ul className="mt-6 space-y-3" role="list">
+            <ul className="mt-6 space-y-3">
               {phase.details.slice(0, 3).map((d) => (
                 <li key={d} className="flex gap-3 rounded-xl bg-secondary/60 p-3 text-sm">
                   <CheckCircle2 className="h-5 w-5 shrink-0 text-india-green" aria-hidden />

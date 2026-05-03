@@ -52,7 +52,6 @@ const Hero = ({ onStart, onChat }: HeroProps) => {
     <section className="relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-glow pointer-events-none" />
       <div className="container relative grid gap-10 py-16 md:py-24 lg:grid-cols-2 lg:items-center">
-
         {/* ---- LEFT: copy ------------------------------------------------ */}
         <div className="animate-fade-in-up">
           <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5 text-sm font-medium text-muted-foreground shadow-soft">
@@ -103,10 +102,12 @@ const Hero = ({ onStart, onChat }: HeroProps) => {
             {!hasAnyState ? (
               <div className="rounded-3xl border border-primary/20 bg-primary/5 p-8 text-center shadow-soft">
                 <h2 className="font-display text-2xl font-bold mb-2">Let's help you vote</h2>
-                <p className="text-muted-foreground mb-6">Answer 3 simple questions to get your personalized guide.</p>
-                <Button 
-                  size="lg" 
-                  variant="hero" 
+                <p className="text-muted-foreground mb-6">
+                  Answer 3 simple questions to get your personalized guide.
+                </p>
+                <Button
+                  size="lg"
+                  variant="hero"
                   onClick={() => setIsGuidedFlowOpen(true)}
                   className="w-full text-lg py-6 rounded-2xl"
                 >
@@ -117,7 +118,7 @@ const Hero = ({ onStart, onChat }: HeroProps) => {
             ) : (
               <div className="rounded-3xl border border-border bg-card p-8 text-center shadow-soft">
                 <PrimaryAction onAction={onStart} />
-                
+
                 <Button
                   variant="ghost"
                   className="mt-6 text-sm text-muted-foreground w-full"
@@ -152,11 +153,8 @@ const Hero = ({ onStart, onChat }: HeroProps) => {
           />
         </div>
       </div>
-      
-      <GuidedFlow 
-        isOpen={isGuidedFlowOpen} 
-        onClose={() => setIsGuidedFlowOpen(false)} 
-      />
+
+      <GuidedFlow isOpen={isGuidedFlowOpen} onClose={() => setIsGuidedFlowOpen(false)} />
     </section>
   );
 };

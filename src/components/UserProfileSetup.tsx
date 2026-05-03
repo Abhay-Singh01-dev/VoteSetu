@@ -17,14 +17,10 @@ const UserProfileSetup = () => {
   const [expanded, setExpanded] = useState(false);
 
   // Local form state
-  const [ageInput, setAgeInput] = useState(
-    user.age !== undefined ? String(user.age) : "",
-  );
+  const [ageInput, setAgeInput] = useState(user.age !== undefined ? String(user.age) : "");
 
   const hasAnyState =
-    user.isRegistered !== undefined ||
-    user.hasEpic !== undefined ||
-    user.age !== undefined;
+    user.isRegistered !== undefined || user.hasEpic !== undefined || user.age !== undefined;
 
   const handleSave = () => {
     const parsed = parseInt(ageInput, 10);
@@ -67,10 +63,7 @@ const UserProfileSetup = () => {
         </button>
 
         {expanded && (
-          <div
-            id="user-profile-panel"
-            className="animate-fade-in-up pb-5"
-          >
+          <div id="user-profile-panel" className="animate-fade-in-up pb-5">
             <p className="mb-4 text-sm text-muted-foreground">
               Help us personalise your journey. All answers stay in your browser only.
             </p>
@@ -78,7 +71,10 @@ const UserProfileSetup = () => {
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {/* Age */}
               <div className="flex flex-col gap-1.5">
-                <label htmlFor="profile-age" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                <label
+                  htmlFor="profile-age"
+                  className="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+                >
                   Your age
                 </label>
                 <input

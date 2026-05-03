@@ -1,6 +1,6 @@
 /**
  * UserProfileDialog — profile setup in a modal dialog.
- * 
+ *
  * Lets the user set age, registration, and EPIC status.
  * Can be triggered manually or opened automatically.
  */
@@ -30,16 +30,12 @@ interface UserProfileDialogProps {
 const UserProfileDialog = ({ trigger, autoOpen = false }: UserProfileDialogProps) => {
   const { user, setUser, resetUser } = useUser();
   const [open, setOpen] = useState(false);
-  
+
   // Local form state
-  const [ageInput, setAgeInput] = useState(
-    user.age !== undefined ? String(user.age) : ""
-  );
+  const [ageInput, setAgeInput] = useState(user.age !== undefined ? String(user.age) : "");
 
   const hasAnyState =
-    user.isRegistered !== undefined ||
-    user.hasEpic !== undefined ||
-    user.age !== undefined;
+    user.isRegistered !== undefined || user.hasEpic !== undefined || user.age !== undefined;
 
   // Auto-open logic: if autoOpen is true and user hasn't set anything yet
   useEffect(() => {
@@ -85,11 +81,14 @@ const UserProfileDialog = ({ trigger, autoOpen = false }: UserProfileDialogProps
             Help us personalise your journey. All answers stay in your browser only.
           </DialogDescription>
         </DialogHeader>
-        
+
         <div className="grid gap-6 py-4">
           {/* Age Group */}
           <div className="grid gap-2">
-            <Label htmlFor="diag-age" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            <Label
+              htmlFor="diag-age"
+              className="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+            >
               Your Age
             </Label>
             <Input

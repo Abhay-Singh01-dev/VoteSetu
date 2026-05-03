@@ -31,10 +31,7 @@ const LanguageSwitcher = ({ variant = "default" }: Props) => {
           <span className="font-medium">{language.native}</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent
-        align="end"
-        className="max-h-[70vh] w-64 overflow-y-auto"
-      >
+      <DropdownMenuContent align="end" className="max-h-[70vh] w-64 overflow-y-auto">
         <DropdownMenuLabel className="flex items-center gap-2 text-xs uppercase tracking-wider text-muted-foreground">
           <Globe className="h-3.5 w-3.5" aria-hidden />
           {t("lang.switcher")}
@@ -46,15 +43,15 @@ const LanguageSwitcher = ({ variant = "default" }: Props) => {
             <DropdownMenuItem
               key={l.code}
               onSelect={() => setLang(l.code)}
-              className={cn("flex items-center justify-between gap-3 py-2.5", active && "bg-secondary")}
+              className={cn(
+                "flex items-center justify-between gap-3 py-2.5",
+                active && "bg-secondary",
+              )}
               aria-checked={active}
               role="menuitemradio"
             >
               <div className="flex flex-col">
-                <span
-                  className="text-sm font-semibold leading-tight"
-                  dir={l.dir ?? "ltr"}
-                >
+                <span className="text-sm font-semibold leading-tight" dir={l.dir ?? "ltr"}>
                   {l.native}
                 </span>
                 <span className="text-[11px] text-muted-foreground">{l.name}</span>

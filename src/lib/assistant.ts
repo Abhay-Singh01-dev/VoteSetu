@@ -58,16 +58,12 @@ export function buildPersonalisedGreeting(
   }
   if (user.hasEpic !== undefined) {
     statusLines.push(
-      user.hasEpic
-        ? "✅ Your EPIC (Voter ID) is confirmed"
-        : "❌ EPIC not yet verified",
+      user.hasEpic ? "✅ Your EPIC (Voter ID) is confirmed" : "❌ EPIC not yet verified",
     );
   }
 
   const statusBlock =
-    statusLines.length > 0
-      ? `\n\nHere's your current status:\n${statusLines.join("\n")}`
-      : "";
+    statusLines.length > 0 ? `\n\nHere's your current status:\n${statusLines.join("\n")}` : "";
 
   return (
     `Namaste! 🙏 Based on your current progress, here's what you should do next:\n\n` +

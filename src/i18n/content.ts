@@ -67,11 +67,13 @@ const hi: ContentCopy = {
       glossary: [
         {
           term: "MCC",
-          definition: "Model Code of Conduct, यानी चुनाव के दौरान दलों, उम्मीदवारों और सरकारों के लिए आचार नियम।",
+          definition:
+            "Model Code of Conduct, यानी चुनाव के दौरान दलों, उम्मीदवारों और सरकारों के लिए आचार नियम।",
         },
         {
           term: "ECI",
-          definition: "Election Commission of India, यानी भारत में चुनाव कराने वाली संवैधानिक संस्था।",
+          definition:
+            "Election Commission of India, यानी भारत में चुनाव कराने वाली संवैधानिक संस्था।",
         },
       ],
     },
@@ -108,15 +110,15 @@ const hi: ContentCopy = {
         },
         {
           term: "RP Act 1951",
-          definition: "Representation of the People Act, भारत में चुनावों को नियंत्रित करने वाला कानून।",
+          definition:
+            "Representation of the People Act, भारत में चुनावों को नियंत्रित करने वाला कानून।",
         },
       ],
     },
     scrutiny: {
       title: "जांच और नाम वापसी",
       duration: "दिन 8-10",
-      summary:
-        "नामांकन पत्रों की जांच होती है और तय समय में उम्मीदवार नाम वापस ले सकते हैं।",
+      summary: "नामांकन पत्रों की जांच होती है और तय समय में उम्मीदवार नाम वापस ले सकते हैं।",
       details: [
         "Returning Officer हर नामांकन पत्र की वैधता जांचता है",
         "अवैध नामांकन कारण दर्ज कर अस्वीकार किए जाते हैं",
@@ -147,8 +149,7 @@ const hi: ContentCopy = {
     campaign: {
       title: "प्रचार अवधि",
       duration: "14 दिन तक",
-      summary:
-        "उम्मीदवार और दल खर्च और आचार नियमों के भीतर प्रचार करते हैं।",
+      summary: "उम्मीदवार और दल खर्च और आचार नियमों के भीतर प्रचार करते हैं।",
       details: [
         "खर्च सीमा Lok Sabha के लिए बड़े राज्यों में 95 लाख और Assembly के लिए 40 लाख रुपये तक हो सकती है",
         "दैनिक खर्च रजिस्टर रखना आवश्यक है",
@@ -173,15 +174,15 @@ const hi: ContentCopy = {
         },
         {
           term: "cVIGIL",
-          definition: "MCC और खर्च उल्लंघन photo/video proof के साथ रिपोर्ट करने का ECI नागरिक app।",
+          definition:
+            "MCC और खर्च उल्लंघन photo/video proof के साथ रिपोर्ट करने का ECI नागरिक app।",
         },
       ],
     },
     polling: {
       title: "मतदान दिवस",
       duration: "चरणों के अनुसार",
-      summary:
-        "मतदाता अलग-अलग चरणों में EVM पर अपना वोट डालते हैं।",
+      summary: "मतदाता अलग-अलग चरणों में EVM पर अपना वोट डालते हैं।",
       details: [
         "मतदान सामान्यतः सुबह 7 बजे से शाम 6 बजे तक होता है",
         "EVM के साथ VVPAT का उपयोग होता है",
@@ -202,23 +203,25 @@ const hi: ContentCopy = {
       glossary: [
         {
           term: "EVM",
-          definition: "Electronic Voting Machine, कागजी मतपत्रों की जगह इस्तेमाल होने वाली इलेक्ट्रॉनिक मशीन।",
+          definition:
+            "Electronic Voting Machine, कागजी मतपत्रों की जगह इस्तेमाल होने वाली इलेक्ट्रॉनिक मशीन।",
         },
         {
           term: "VVPAT",
-          definition: "Voter Verifiable Paper Audit Trail, वोट की पर्ची 7 सेकंड दिखाने वाली व्यवस्था।",
+          definition:
+            "Voter Verifiable Paper Audit Trail, वोट की पर्ची 7 सेकंड दिखाने वाली व्यवस्था।",
         },
         {
           term: "NOTA",
-          definition: "None Of The Above, सभी उम्मीदवारों को औपचारिक रूप से अस्वीकार करने का विकल्प।",
+          definition:
+            "None Of The Above, सभी उम्मीदवारों को औपचारिक रूप से अस्वीकार करने का विकल्प।",
         },
       ],
     },
     counting: {
       title: "मतगणना और परिणाम",
       duration: "मतगणना दिवस",
-      summary:
-        "कड़ी निगरानी में वोट गिने जाते हैं और परिणाम घोषित होते हैं।",
+      summary: "कड़ी निगरानी में वोट गिने जाते हैं और परिणाम घोषित होते हैं।",
       details: [
         "पहले postal ballots, फिर EVM votes round-by-round गिने जाते हैं",
         "हर Assembly segment में 5 random booths की VVPAT slip count अनिवार्य है",
@@ -272,14 +275,12 @@ const hi: ContentCopy = {
     },
     4: {
       title: "अपना polling booth खोजें",
-      description:
-        "EPIC number या mobile number से अपना booth और roll पर Part Number खोजें।",
+      description: "EPIC number या mobile number से अपना booth और roll पर Part Number खोजें।",
       action: "Know Your Polling Station खोजें",
     },
     5: {
       title: "Polling day पर valid ID ले जाएं",
-      description:
-        "अपना EPIC या ECI द्वारा स्वीकृत 12 alternative IDs में से कोई एक साथ रखें।",
+      description: "अपना EPIC या ECI द्वारा स्वीकृत 12 alternative IDs में से कोई एक साथ रखें।",
       action: "EPIC और backup ID साथ रखें",
     },
     6: {
@@ -480,12 +481,14 @@ export function localizeEpicValidation(result: EpicValidation, lang: LanguageCod
 }
 
 export function getLocalizedSuggestedQuestions(lang: LanguageCode): string[] {
-  return copyFor(lang)?.suggestedQuestions ?? [
-    "How do I register to vote?",
-    "What is VVPAT?",
-    "Where do I find my polling booth?",
-    "Can NRIs vote in Indian elections?",
-    "What is the Model Code of Conduct?",
-    "What documents can I carry to vote?",
-  ];
+  return (
+    copyFor(lang)?.suggestedQuestions ?? [
+      "How do I register to vote?",
+      "What is VVPAT?",
+      "Where do I find my polling booth?",
+      "Can NRIs vote in Indian elections?",
+      "What is the Model Code of Conduct?",
+      "What documents can I carry to vote?",
+    ]
+  );
 }

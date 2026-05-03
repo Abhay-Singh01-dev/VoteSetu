@@ -136,7 +136,7 @@ export const TRANSLATION_KEYS = [
   "chat.closeLabel",
 ] as const;
 
-export type TKey = typeof TRANSLATION_KEYS[number];
+export type TKey = (typeof TRANSLATION_KEYS)[number];
 
 type Dict = Partial<Record<TKey, string>>;
 
@@ -293,9 +293,11 @@ const hi: Dict = {
   "epic.input.statusEmpty": "इनपुट की प्रतीक्षा",
   "epic.input.searchRoll": "ECI निर्वाचक नामावली पर सत्यापित करें",
   "epic.input.verifyHeading": "ये जाँचें कहाँ से आती हैं",
-  "epic.input.verifyHelp": "हर नियम ECI / वैधानिक संदर्भ से मेल खाता है। मूल पढ़ने हेतु स्रोत पर टैप करें।",
+  "epic.input.verifyHelp":
+    "हर नियम ECI / वैधानिक संदर्भ से मेल खाता है। मूल पढ़ने हेतु स्रोत पर टैप करें।",
   "epic.input.referenceHeading": "संदर्भ स्रोत",
-  "epic.input.referenceHelp": "हर checklist item के लिए इस्तेमाल किए गए exact ECI, SVEEP और Electoral Search pages.",
+  "epic.input.referenceHelp":
+    "हर checklist item के लिए इस्तेमाल किए गए exact ECI, SVEEP और Electoral Search pages.",
   "boothPdf.cta": "बूथ-डे चेकलिस्ट डाउनलोड करें",
   "boothPdf.title": "बूथ-डे चेकलिस्ट",
   "boothPdf.subtitle": "मतदान दिवस के लिए एक-पृष्ठ चेकलिस्ट",
@@ -346,8 +348,7 @@ const hi: Dict = {
   "faq.heading": "अक्सर पूछे जाने वाले प्रश्न",
   "faq.subtitle": "भारतीय चुनावों के सबसे सामान्य प्रश्नों के त्वरित उत्तर।",
   "cta.heading": "और प्रश्न हैं?",
-  "cta.subtitle":
-    "वोटसेतु सहायक एक क्लिक दूर है — सरल भाषा में चुनावों के बारे में कुछ भी पूछें।",
+  "cta.subtitle": "वोटसेतु सहायक एक क्लिक दूर है — सरल भाषा में चुनावों के बारे में कुछ भी पूछें।",
   "cta.button": "💬 वोटसेतु से बातें करें",
   "plan.cta": "मेरी मतदाता योजना डाउनलोड करें",
   "plan.title": "अपनी मतदाता योजना बनाएँ",
@@ -446,8 +447,7 @@ const bn: Dict = {
   "timeline.next": "পরবর্তী →",
   "timeline.phaseLabel": "পর্যায় {n} / {total}",
   "journey.heading": "আপনার ভোটার যাত্রা",
-  "journey.subtitle":
-    "নিবন্ধন থেকে ভোটদান — ছয়টি সহজ ধাপ। শেষ হলে আপনার পরিকল্পনা ডাউনলোড করুন।",
+  "journey.subtitle": "নিবন্ধন থেকে ভোটদান — ছয়টি সহজ ধাপ। শেষ হলে আপনার পরিকল্পনা ডাউনলোড করুন।",
   "journey.progress": "{done} / {total} ধাপ সম্পন্ন · {pct}%",
   "journey.markDone": "সম্পন্ন চিহ্নিত করুন",
   "journey.markUndone": "অসম্পূর্ণ চিহ্নিত করুন",
@@ -510,7 +510,8 @@ const ta: Dict = {
   "skip.toContent": "முக்கிய உள்ளடக்கத்துக்கு செல்க",
   "lang.switcher": "மொழி தேர்வு",
   "lang.label": "மொழி",
-  "lang.notice": "இடைமுகம் மொழிபெயர்க்கப்பட்டது. விரிவான உள்ளடக்கம் துல்லியத்திற்காக ஆங்கிலத்தில் உள்ளது.",
+  "lang.notice":
+    "இடைமுகம் மொழிபெயர்க்கப்பட்டது. விரிவான உள்ளடக்கம் துல்லியத்திற்காக ஆங்கிலத்தில் உள்ளது.",
   "epic.input.heading": "உங்கள் EPIC எண்ணை சரிபார்க்க",
   "epic.input.label": "EPIC எண்ணை ஒட்டுக",
   "epic.input.help": "நாங்கள் இதை சேமிக்கவில்லை — சரிபார்ப்பு உங்கள் உலாவியில் நடக்கும்.",
@@ -753,12 +754,28 @@ const as: Dict = {
 };
 
 export const TRANSLATIONS: Partial<Record<LanguageCode, Dict>> = {
-  en, hi, bn, ta, te, mr, gu, kn, ml, pa, ur, or, as,
+  en,
+  hi,
+  bn,
+  ta,
+  te,
+  mr,
+  gu,
+  kn,
+  ml,
+  pa,
+  ur,
+  or,
+  as,
   // The remaining scheduled languages fall back to English until human-reviewed
   // translations are added (mai, sa, ks, ne, kok, sd, doi, mni, brx, sat).
 };
 
-export function translate(code: LanguageCode, key: TKey, vars?: Record<string, string | number>): string {
+export function translate(
+  code: LanguageCode,
+  key: TKey,
+  vars?: Record<string, string | number>,
+): string {
   const dict = TRANSLATIONS[code] ?? {};
   const fallback = TRANSLATIONS.en?.[key] ?? key;
   let str = dict[key] ?? fallback;

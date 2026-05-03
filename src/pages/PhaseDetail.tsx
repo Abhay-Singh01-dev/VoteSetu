@@ -61,7 +61,10 @@ const PhaseDetail = () => {
       {/* Compact header */}
       <header className="sticky top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur-lg">
         <div className="container flex h-16 items-center justify-between">
-          <Link to="/" className="flex items-center gap-2 rounded-lg p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+          <Link
+            to="/"
+            className="flex items-center gap-2 rounded-lg p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-hero text-primary-foreground shadow-soft">
               <Vote className="h-5 w-5" />
             </div>
@@ -83,9 +86,13 @@ const PhaseDetail = () => {
           <div className="absolute inset-0 bg-gradient-glow pointer-events-none" />
           <div className="container relative py-12 md:py-16">
             <nav aria-label="Breadcrumb" className="mb-4 text-sm text-muted-foreground">
-              <Link to="/" className="hover:text-foreground hover:underline">{t("phase.breadcrumb.home")}</Link>
+              <Link to="/" className="hover:text-foreground hover:underline">
+                {t("phase.breadcrumb.home")}
+              </Link>
               <span className="mx-2">/</span>
-              <Link to="/#timeline" className="hover:text-foreground hover:underline">{t("phase.breadcrumb.timeline")}</Link>
+              <Link to="/#timeline" className="hover:text-foreground hover:underline">
+                {t("phase.breadcrumb.timeline")}
+              </Link>
               <span className="mx-2">/</span>
               <span className="text-foreground">{phase.title}</span>
             </nav>
@@ -93,7 +100,8 @@ const PhaseDetail = () => {
             <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
               <div className="animate-fade-in-up max-w-2xl">
                 <span className="inline-flex items-center gap-2 rounded-full bg-card px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary shadow-soft">
-                  {t("timeline.phaseLabel", { n: idx + 1, total: timelinePhases.length })} · {phase.duration}
+                  {t("timeline.phaseLabel", { n: idx + 1, total: timelinePhases.length })} ·{" "}
+                  {phase.duration}
                 </span>
                 <h1 className="mt-4 font-display text-4xl font-extrabold leading-tight md:text-5xl">
                   <span className="mr-3">{phase.icon}</span>
@@ -153,10 +161,15 @@ const PhaseDetail = () => {
                     aria-label="Phase checklist progress"
                   />
                 </div>
-                <p className="mt-2 text-xs text-muted-foreground">{t("phase.checklist.complete", { done: done.size, total: phase.checklist.length })}</p>
+                <p className="mt-2 text-xs text-muted-foreground">
+                  {t("phase.checklist.complete", {
+                    done: done.size,
+                    total: phase.checklist.length,
+                  })}
+                </p>
               </div>
 
-              <ul className="mt-6 space-y-3" role="list">
+              <ul className="mt-6 space-y-3">
                 {phase.checklist.map((c, i) => {
                   const isDone = done.has(i);
                   return (
@@ -167,23 +180,39 @@ const PhaseDetail = () => {
                         className={cn(
                           "group flex w-full items-start gap-3 rounded-2xl border p-4 text-left transition-smooth",
                           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-                          isDone ? "border-india-green/40 bg-india-green/5" : "border-border bg-card hover:border-primary/40",
+                          isDone
+                            ? "border-india-green/40 bg-india-green/5"
+                            : "border-border bg-card hover:border-primary/40",
                         )}
                       >
                         <span
                           aria-hidden
                           className={cn(
                             "mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-md border-2 transition-bounce",
-                            isDone ? "border-india-green bg-india-green text-success-foreground" : "border-border group-hover:border-primary",
+                            isDone
+                              ? "border-india-green bg-india-green text-success-foreground"
+                              : "border-border group-hover:border-primary",
                           )}
                         >
                           {isDone && <Check className="h-4 w-4" />}
                         </span>
                         <div className="min-w-0 flex-1">
-                          <span className={cn("inline-block rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider", roleStyles[c.for])}>
-                            {t(`phase.role.${c.for}` as "phase.role.voter" | "phase.role.candidate" | "phase.role.official")}
+                          <span
+                            className={cn(
+                              "inline-block rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider",
+                              roleStyles[c.for],
+                            )}
+                          >
+                            {t(
+                              `phase.role.${c.for}` as
+                                | "phase.role.voter"
+                                | "phase.role.candidate"
+                                | "phase.role.official",
+                            )}
                           </span>
-                          <p className={cn("mt-1.5 text-sm", isDone && "line-through opacity-70")}>{c.item}</p>
+                          <p className={cn("mt-1.5 text-sm", isDone && "line-through opacity-70")}>
+                            {c.item}
+                          </p>
                         </div>
                       </button>
                     </li>
@@ -193,7 +222,7 @@ const PhaseDetail = () => {
 
               {/* What happens */}
               <h3 className="mt-10 font-display text-xl font-bold">{t("phase.whatHappens")}</h3>
-              <ul className="mt-4 space-y-2.5" role="list">
+              <ul className="mt-4 space-y-2.5">
                 {phase.details.map((d) => (
                   <li key={d} className="flex gap-3 rounded-xl bg-secondary/60 p-3 text-sm">
                     <Check className="mt-0.5 h-4 w-4 shrink-0 text-india-green" aria-hidden />
@@ -212,7 +241,7 @@ const PhaseDetail = () => {
                   </div>
                   <h2 className="font-display text-xl font-bold">{t("phase.keyDates")}</h2>
                 </div>
-                <ul className="mt-4 divide-y divide-border" role="list">
+                <ul className="mt-4 divide-y divide-border">
                   {phase.keyDates.map((d) => (
                     <li key={d.label} className="flex items-center justify-between gap-4 py-3">
                       <span className="text-sm text-muted-foreground">{d.label}</span>
@@ -249,23 +278,31 @@ const PhaseDetail = () => {
                 <Link to={`/phase/${prev.id}`} aria-label={`Previous phase: ${prev.title}`}>
                   <ArrowLeft className="h-4 w-4" />
                   <span className="text-left">
-                    <span className="block text-[10px] uppercase tracking-wider text-muted-foreground">{t("phase.previous")}</span>
+                    <span className="block text-[10px] uppercase tracking-wider text-muted-foreground">
+                      {t("phase.previous")}
+                    </span>
                     <span className="block font-semibold">{prev.title}</span>
                   </span>
                 </Link>
               </Button>
-            ) : <span />}
+            ) : (
+              <span />
+            )}
             {next ? (
               <Button asChild variant="hero" className="justify-end">
                 <Link to={`/phase/${next.id}`} aria-label={`Next phase: ${next.title}`}>
                   <span className="text-right">
-                    <span className="block text-[10px] uppercase tracking-wider text-primary-foreground/80">{t("phase.next")}</span>
+                    <span className="block text-[10px] uppercase tracking-wider text-primary-foreground/80">
+                      {t("phase.next")}
+                    </span>
                     <span className="block font-semibold">{next.title}</span>
                   </span>
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
-            ) : <span />}
+            ) : (
+              <span />
+            )}
           </div>
         </section>
       </main>

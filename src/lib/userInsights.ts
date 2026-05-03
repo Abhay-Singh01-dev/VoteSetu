@@ -31,7 +31,7 @@ export type UserInsight = {
  */
 export function getUserInsights(user: UserState): UserInsight {
   const nextStep = getNextStep(user);
-  
+
   const risks: { message: string; severity: SeverityLevel }[] = [];
   const suggestions: string[] = [];
   let urgency: SeverityLevel = "info";
@@ -42,22 +42,22 @@ export function getUserInsights(user: UserState): UserInsight {
   if (user.age !== undefined && user.age >= 18) confidenceScore += 10;
   if (user.isRegistered) confidenceScore += 40;
   if (user.hasEpic) confidenceScore += 30;
-  
+
   // Remaining 20 points from explicitly tracking timeline completion
   // E.g. finding a booth, or marking step 4/5/6 as complete
-  const otherSteps = user.completedSteps.filter(s => ["4", "5", "6"].includes(s));
+  const otherSteps = user.completedSteps.filter((s) => ["4", "5", "6"].includes(s));
   confidenceScore += Math.min(20, otherSteps.length * 7);
 
   // Normalize confidence (cap at 100)
   confidenceScore = Math.min(100, Math.max(0, confidenceScore));
 
   // 2. Risk Evaluation (Max 3 core risks)
-  
+
   // Risk A: Underage (Absolute blocker)
   if (user.age !== undefined && user.age < 18) {
     risks.push({
       message: `You are ${user.age} years old — you must be 18+ to vote.`,
-      severity: "warning"
+      severity: "warning",
     });
   }
 
@@ -65,7 +65,7 @@ export function getUserInsights(user: UserState): UserInsight {
   if (user.isRegistered === false) {
     risks.push({
       message: "You are not on the electoral roll. Registration implies a waiting period.",
-      severity: "critical"
+      severity: "critical",
     });
     urgency = "critical";
   }
@@ -74,7 +74,7 @@ export function getUserInsights(user: UserState): UserInsight {
   if (user.isRegistered && user.hasEpic === false) {
     risks.push({
       message: "You lack a verified EPIC. You must locate an alternative ID.",
-      severity: "warning"
+      severity: "warning",
     });
     if (urgency !== "critical") urgency = "warning";
   }

@@ -18,7 +18,7 @@ export const useGeminiLive = (open: boolean, isMuted: boolean, config: GeminiLiv
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const inactivityTimeout = useRef<number | null>(null);
-  
+
   // Audio Queueing System
   const audioQueueRef = useRef<AudioBuffer[]>([]);
   const isPlayingRef = useRef(false);
@@ -32,7 +32,7 @@ export const useGeminiLive = (open: boolean, isMuted: boolean, config: GeminiLiv
       view.setInt16(i * 2, pcmData[i], true); // true for little-endian
     }
     const uint8Array = new Uint8Array(buffer);
-    
+
     // Chunked conversion to string to prevent stack overflow
     let binary = "";
     const chunkSize = 8192;
@@ -55,50 +55,55 @@ export const useGeminiLive = (open: boolean, isMuted: boolean, config: GeminiLiv
     const source = audioContextRef.current.createBufferSource();
     source.buffer = buffer;
     source.connect(audioContextRef.current.destination);
-    
+
     source.onended = () => {
       playNextInQueue();
     };
     source.start();
   }, []);
 
-  const playOutputAudio = useCallback((base64: string) => {
-    if (!audioContextRef.current) return;
-    try {
-      const binary = atob(base64);
-      const bytes = new Uint8Array(binary.length);
-      for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
-      const pcm16 = new Int16Array(bytes.buffer);
-      const float32 = new Float32Array(pcm16.length);
-      for (let i = 0; i < pcm16.length; i++) float32[i] = pcm16[i] / 32768;
-      
-      const buffer = audioContextRef.current.createBuffer(1, float32.length, 16000);
-      buffer.getChannelData(0).set(float32);
-      
-      audioQueueRef.current.push(buffer);
-      if (!isPlayingRef.current) {
-        playNextInQueue();
+  const playOutputAudio = useCallback(
+    (base64: string) => {
+      if (!audioContextRef.current) return;
+      try {
+        const binary = atob(base64);
+        const bytes = new Uint8Array(binary.length);
+        for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+        const pcm16 = new Int16Array(bytes.buffer);
+        const float32 = new Float32Array(pcm16.length);
+        for (let i = 0; i < pcm16.length; i++) float32[i] = pcm16[i] / 32768;
+
+        const buffer = audioContextRef.current.createBuffer(1, float32.length, 16000);
+        buffer.getChannelData(0).set(float32);
+
+        audioQueueRef.current.push(buffer);
+        if (!isPlayingRef.current) {
+          playNextInQueue();
+        }
+      } catch (e) {
+        console.error("Audio playback error", e);
       }
-    } catch (e) {
-      console.error("Audio playback error", e);
-    }
-  }, [playNextInQueue]);
+    },
+    [playNextInQueue],
+  );
 
   const sendVisionFrame = useCallback(() => {
     if (!canvasRef.current) canvasRef.current = document.createElement("canvas");
     const canvas = canvasRef.current;
     const video = videoRef.current;
     if (!video || !wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) return;
-    
+
     canvas.width = 320;
     canvas.height = 240;
     const ctx = canvas.getContext("2d");
     ctx?.drawImage(video, 0, 0, canvas.width, canvas.height);
     const base64 = canvas.toDataURL("image/jpeg", 0.3).split(",")[1];
-    
-    wsRef.current.send(JSON.stringify({
-      realtime_input: { media_chunks: [{ mime_type: "image/jpeg", data: base64 }] }
-    }));
+
+    wsRef.current.send(
+      JSON.stringify({
+        realtime_input: { media_chunks: [{ mime_type: "image/jpeg", data: base64 }] },
+      }),
+    );
   }, []);
 
   const startMediaCapture = useCallback(async () => {
@@ -119,12 +124,16 @@ export const useGeminiLive = (open: boolean, isMuted: boolean, config: GeminiLiv
         for (let i = 0; i < inputData.length; i++) {
           pcmData[i] = Math.max(-1, Math.min(1, inputData[i])) * 0x7fff;
         }
-        
+
         if (wsRef.current?.readyState === WebSocket.OPEN) {
           const base64 = safeBase64Encode(pcmData);
-          wsRef.current.send(JSON.stringify({
-            realtime_input: { media_chunks: [{ mime_type: "audio/pcm;rate=16000", data: base64 }] }
-          }));
+          wsRef.current.send(
+            JSON.stringify({
+              realtime_input: {
+                media_chunks: [{ mime_type: "audio/pcm;rate=16000", data: base64 }],
+              },
+            }),
+          );
         }
       };
 
@@ -143,7 +152,7 @@ export const useGeminiLive = (open: boolean, isMuted: boolean, config: GeminiLiv
     setIsConnecting(false);
     audioQueueRef.current = [];
     isPlayingRef.current = false;
-    
+
     if (wsRef.current) {
       wsRef.current.close();
       wsRef.current = null;
@@ -157,7 +166,7 @@ export const useGeminiLive = (open: boolean, isMuted: boolean, config: GeminiLiv
       audioContextRef.current = null;
     }
     if (streamRef.current) {
-      streamRef.current.getTracks().forEach(t => t.stop());
+      streamRef.current.getTracks().forEach((t) => t.stop());
       streamRef.current = null;
     }
   }, []);
@@ -171,27 +180,37 @@ export const useGeminiLive = (open: boolean, isMuted: boolean, config: GeminiLiv
 
       wsRef.current.onopen = () => {
         setIsConnecting(false);
-        wsRef.current?.send(JSON.stringify({
-          setup: {
-            model: config.model || "models/gemini-2.0-flash-exp",
-            generation_config: { 
-              response_modalities: ["AUDIO"],
-              speech_config: {
-                voice_config: { prebuilt_voice_config: { voice_name: "Aoede" } }
-              }
+        wsRef.current?.send(
+          JSON.stringify({
+            setup: {
+              model: config.model || "models/gemini-2.0-flash-exp",
+              generation_config: {
+                response_modalities: ["AUDIO"],
+                speech_config: {
+                  voice_config: { prebuilt_voice_config: { voice_name: "Aoede" } },
+                },
+              },
+              system_instruction: {
+                parts: [
+                  {
+                    text:
+                      config.systemInstruction || "You are a helpful election assistant for India.",
+                  },
+                ],
+              },
             },
-            system_instruction: {
-               parts: [{ text: config.systemInstruction || "You are a helpful election assistant for India." }]
-            }
-          }
-        }));
+          }),
+        );
         startMediaCapture();
       };
 
       wsRef.current.onmessage = (event) => {
         const data = JSON.parse(event.data);
         const serverContent = data.server_content || data.serverContent;
-        if (serverContent?.model_turn?.parts?.[0]?.inline_data || serverContent?.modelTurn?.parts?.[0]?.inlineData) {
+        if (
+          serverContent?.model_turn?.parts?.[0]?.inline_data ||
+          serverContent?.modelTurn?.parts?.[0]?.inlineData
+        ) {
           const part = (serverContent.model_turn || serverContent.modelTurn).parts[0];
           const base64Audio = (part.inline_data || part.inlineData).data;
           if (config.onAudioOutput) {
@@ -201,10 +220,9 @@ export const useGeminiLive = (open: boolean, isMuted: boolean, config: GeminiLiv
           }
         }
       };
-      
+
       wsRef.current.onerror = (e) => console.error("WS Error", e);
       wsRef.current.onclose = () => stopLiveSession();
-
     } catch (e) {
       console.error("Session start error:", e);
       setIsConnecting(false);
@@ -226,6 +244,6 @@ export const useGeminiLive = (open: boolean, isMuted: boolean, config: GeminiLiv
     isSpeaking,
     resetInactivity: () => {
       if (inactivityTimeout.current) window.clearTimeout(inactivityTimeout.current);
-    }
+    },
   };
 };

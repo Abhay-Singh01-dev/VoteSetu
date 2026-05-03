@@ -1,5 +1,13 @@
 import { useMemo, useState } from "react";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -91,20 +99,43 @@ const VoterPlanDialog = ({ trigger }: VoterPlanDialogProps) => {
         <div className="space-y-4">
           <div className="grid gap-2">
             <Label htmlFor="vp-name">{t("plan.field.name")}</Label>
-            <Input id="vp-name" value={name} onChange={(e) => setName(e.target.value)} placeholder={t("plan.field.namePh")} maxLength={100} />
+            <Input
+              id="vp-name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder={t("plan.field.namePh")}
+              maxLength={100}
+            />
           </div>
           <div className="grid gap-2">
             <Label htmlFor="vp-const">{t("plan.field.const")}</Label>
-            <Input id="vp-const" value={constituency} onChange={(e) => setConstituency(e.target.value)} placeholder={t("plan.field.constPh")} maxLength={120} />
+            <Input
+              id="vp-const"
+              value={constituency}
+              onChange={(e) => setConstituency(e.target.value)}
+              placeholder={t("plan.field.constPh")}
+              maxLength={120}
+            />
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div className="grid gap-2">
               <Label htmlFor="vp-date">{t("plan.field.date")}</Label>
-              <Input id="vp-date" type="date" value={pollingDate} onChange={(e) => setPollingDate(e.target.value)} />
+              <Input
+                id="vp-date"
+                type="date"
+                value={pollingDate}
+                onChange={(e) => setPollingDate(e.target.value)}
+              />
             </div>
             <div className="grid gap-2">
               <Label htmlFor="vp-booth">{t("plan.field.booth")}</Label>
-              <Input id="vp-booth" value={boothInfo} onChange={(e) => setBoothInfo(e.target.value)} placeholder={t("plan.field.boothPh")} maxLength={80} />
+              <Input
+                id="vp-booth"
+                value={boothInfo}
+                onChange={(e) => setBoothInfo(e.target.value)}
+                placeholder={t("plan.field.boothPh")}
+                maxLength={80}
+              />
             </div>
           </div>
 
@@ -112,7 +143,9 @@ const VoterPlanDialog = ({ trigger }: VoterPlanDialogProps) => {
           <div
             className={cn(
               "flex flex-col gap-2 rounded-2xl border p-4 transition-smooth sm:flex-row sm:items-center sm:justify-between",
-              boothReady ? "border-india-green/40 bg-india-green/5" : "border-border bg-secondary/40",
+              boothReady
+                ? "border-india-green/40 bg-india-green/5"
+                : "border-border bg-secondary/40",
             )}
           >
             <div className="min-w-0">
@@ -141,7 +174,7 @@ const VoterPlanDialog = ({ trigger }: VoterPlanDialogProps) => {
             <legend className="px-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               {t("plan.tickLegend")}
             </legend>
-            <ul className="mt-2 space-y-2" role="list">
+            <ul className="mt-2 space-y-2">
               {localizedJourney.map((s) => {
                 const id = `vp-step-${s.id}`;
                 const done = completed.has(s.id);
@@ -173,7 +206,9 @@ const VoterPlanDialog = ({ trigger }: VoterPlanDialogProps) => {
         </div>
 
         <DialogFooter>
-          <Button variant="outline" onClick={() => setOpen(false)}>{t("plan.cancel")}</Button>
+          <Button variant="outline" onClick={() => setOpen(false)}>
+            {t("plan.cancel")}
+          </Button>
           <Button variant="hero" onClick={handleDownload}>
             <Download /> {t("plan.download")}
           </Button>

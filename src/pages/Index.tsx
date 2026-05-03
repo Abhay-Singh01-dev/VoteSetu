@@ -47,7 +47,7 @@ const Index = () => {
       <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-lg">
         <div className="container flex h-16 items-center justify-between gap-3">
           <a
-            href="#"
+            href="/"
             className="flex items-center gap-2 rounded-lg p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             aria-label={`${t("brand.name")} home`}
           >
@@ -94,7 +94,11 @@ const Index = () => {
             <UserProfileDialog
               autoOpen
               trigger={
-                <Button variant="ghost" size="icon" className="ml-2 rounded-full hover:bg-primary/10 text-primary">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="ml-2 rounded-full hover:bg-primary/10 text-primary"
+                >
                   <User className="h-5 w-5" />
                 </Button>
               }
@@ -143,9 +147,7 @@ const Index = () => {
               <h3 id="cta-heading" className="font-display text-3xl font-bold md:text-4xl">
                 {t("cta.heading")}
               </h3>
-              <p className="mx-auto mt-3 max-w-xl text-accent-foreground/85">
-                {t("cta.subtitle")}
-              </p>
+              <p className="mx-auto mt-3 max-w-xl text-accent-foreground/85">{t("cta.subtitle")}</p>
               <button
                 onClick={() => setChatOpen(true)}
                 className="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-semibold text-accent shadow-elegant transition-bounce hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-accent"
@@ -182,7 +184,7 @@ const Index = () => {
         liveAgentOpen={liveAgentOpen}
         onLiveAgentOpenChange={setLiveAgentOpen}
       />
-      
+
       <LiveAgentPill open={liveAgentOpen} onClose={() => setLiveAgentOpen(false)} />
     </div>
   );

@@ -1,6 +1,14 @@
 import { useCallback, useMemo, useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { Check, ExternalLink, ChevronRight, Lock, Sparkles, ChevronDown, ChevronUp } from "lucide-react";
+import {
+  Check,
+  ExternalLink,
+  ChevronRight,
+  Lock,
+  Sparkles,
+  ChevronDown,
+  ChevronUp,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import VoterPlanDialog from "@/components/VoterPlanDialog";
 import { useT } from "@/i18n/LanguageProvider";
@@ -26,11 +34,7 @@ const VoterJourney = () => {
   // ----- Derived progress ------------------------------------------------
 
   const completedCount = useMemo(
-    () =>
-      voterJourney.reduce(
-        (acc, step) => acc + (isStepComplete(step.id, user) ? 1 : 0),
-        0,
-      ),
+    () => voterJourney.reduce((acc, step) => acc + (isStepComplete(step.id, user) ? 1 : 0), 0),
     [voterJourney, user],
   );
 
@@ -78,7 +82,6 @@ const VoterJourney = () => {
   return (
     <section id="journey" className="bg-secondary/40 py-20" aria-labelledby="journey-heading">
       <div className="container">
-
         {/* ---- Section header ------------------------------------------- */}
         <div className="mx-auto max-w-2xl text-center animate-fade-in-up">
           <div className="tricolor-bar mx-auto w-24 mb-5" aria-hidden />
@@ -120,12 +123,11 @@ const VoterJourney = () => {
         </div>
 
         {/* ---- Steps grid ---------------------------------------------- */}
-        <ul className="mx-auto mt-10 grid max-w-5xl gap-4 md:grid-cols-2" role="list">
+        <ul className="mx-auto mt-10 grid max-w-5xl gap-4 md:grid-cols-2">
           {voterJourney.map((step) => {
             const done = isStepComplete(step.id, user);
             const isActive = step.id === nextStepNumericId && !done;
-            const isLocked =
-              !done && !isActive && step.id > nextStepNumericId;
+            const isLocked = !done && !isActive && step.id > nextStepNumericId;
             const labelId = `journey-step-${step.id}`;
 
             return (
@@ -186,15 +188,15 @@ const VoterJourney = () => {
                     >
                       {step.title}
                     </h3>
-                    <p className="mt-2 font-medium text-foreground">
-                      {step.description}
-                    </p>
+                    <p className="mt-2 font-medium text-foreground">{step.description}</p>
 
                     {/* Learn More Toggle */}
                     {step.advanced && (
                       <div className="mt-3">
                         <button
-                          onClick={() => setExpandedDescId(expandedDescId === step.id ? null : step.id)}
+                          onClick={() =>
+                            setExpandedDescId(expandedDescId === step.id ? null : step.id)
+                          }
                           className="flex items-center gap-1 text-sm font-semibold text-primary/80 hover:text-primary transition-colors focus-visible:outline-none"
                           aria-expanded={expandedDescId === step.id}
                         >
@@ -205,7 +207,7 @@ const VoterJourney = () => {
                             <ChevronDown className="h-4 w-4" />
                           )}
                         </button>
-                        
+
                         {expandedDescId === step.id && (
                           <div className="mt-2 p-3 rounded-lg bg-secondary/50 text-sm text-muted-foreground animate-fade-in border border-border">
                             {step.advanced}
@@ -223,10 +225,7 @@ const VoterJourney = () => {
                           onClick={() => toggleStep(step.id)}
                           aria-pressed={done}
                           aria-labelledby={labelId}
-                          className={cn(
-                            "rounded-xl",
-                            isActive && "shadow-soft",
-                          )}
+                          className={cn("rounded-xl", isActive && "shadow-soft")}
                         >
                           {done ? (
                             t("journey.markUndone")
@@ -265,12 +264,8 @@ const VoterJourney = () => {
         {/* ---- Take-with-you CTA --------------------------------------- */}
         <div className="mx-auto mt-10 flex max-w-3xl flex-col items-center gap-3 rounded-3xl border border-border bg-card p-6 text-center shadow-soft md:flex-row md:text-left">
           <div className="flex-1">
-            <h3 className="font-display text-xl font-bold">
-              {t("journey.takeWithYou.title")}
-            </h3>
-            <p className="mt-1 text-sm text-muted-foreground">
-              {t("journey.takeWithYou.body")}
-            </p>
+            <h3 className="font-display text-xl font-bold">{t("journey.takeWithYou.title")}</h3>
+            <p className="mt-1 text-sm text-muted-foreground">{t("journey.takeWithYou.body")}</p>
           </div>
           <VoterPlanDialog />
         </div>

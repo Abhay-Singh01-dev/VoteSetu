@@ -3,10 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { MessageCircle, Send, X, Sparkles, Mic, Loader2, Volume2, Square } from "lucide-react";
 import { cn } from "@/lib/utils";
-import {
-  buildPersonalisedGreeting,
-  type CitationSource,
-} from "@/lib/assistant";
+import { buildPersonalisedGreeting, type CitationSource } from "@/lib/assistant";
 import { useT } from "@/i18n/LanguageProvider";
 import { getLocalizedSuggestedQuestions } from "@/i18n/content";
 import SourceList from "@/components/SourceList";
@@ -61,7 +58,7 @@ declare global {
 
 function renderContent(text: string) {
   if (!text) return null;
-  
+
   // Handle case where text might be raw JSON (from old backend or error)
   let cleanText = text;
   if (text.trim().startsWith('{"reply":')) {
@@ -112,7 +109,7 @@ function renderContent(text: string) {
           isMainHeader && "text-lg",
           isSubHeader && "text-base",
           (isBullet || isNumbered) && "relative pl-5",
-          line.trim() === "" && "h-2"
+          line.trim() === "" && "h-2",
         )}
       >
         {(isBullet || isNumbered) && (
@@ -126,7 +123,12 @@ function renderContent(text: string) {
   });
 }
 
-const ChatAssistant = ({ open, onOpenChange, liveAgentOpen, onLiveAgentOpenChange }: ChatAssistantProps) => {
+const ChatAssistant = ({
+  open,
+  onOpenChange,
+  liveAgentOpen,
+  onLiveAgentOpenChange,
+}: ChatAssistantProps) => {
   const { t, lang } = useT();
   const { user, setUser } = useUser();
   const suggestedQuestions = useMemo(() => getLocalizedSuggestedQuestions(lang), [lang]);
@@ -153,8 +155,10 @@ const ChatAssistant = ({ open, onOpenChange, liveAgentOpen, onLiveAgentOpenChang
   const recognitionRef = useRef<ISpeechRecognition | null>(null);
   const synthesisRef = useRef<SpeechSynthesis | null>(null);
   const silenceTimeoutRef = useRef<number | null>(null);
-  const isSupported = useRef(typeof window !== "undefined" && (!!window.SpeechRecognition || !!window.webkitSpeechRecognition));
-
+  const isSupported = useRef(
+    typeof window !== "undefined" &&
+      (!!window.SpeechRecognition || !!window.webkitSpeechRecognition),
+  );
 
   useEffect(() => {
     if (open) {
@@ -202,22 +206,39 @@ const ChatAssistant = ({ open, onOpenChange, liveAgentOpen, onLiveAgentOpenChang
       } else {
         setUser({ age: 17 });
         setConvoState("idle");
-        return { role: "assistant", content: "You need to be 18 to vote. Do not worry, your time will come!" };
+        return {
+          role: "assistant",
+          content: "You need to be 18 to vote. Do not worry, your time will come!",
+        };
       }
     } else if (convoState === "awaiting_reg_confirm") {
       if (["yes", "yeah", "yup", "i have", "i am"].some((w) => qLower.includes(w))) {
         setUser({ isRegistered: true, hasEpic: true });
         setConvoState("idle");
-        return { role: "assistant", content: "Perfect! All you need to do now is find out where to vote." };
+        return {
+          role: "assistant",
+          content: "Perfect! All you need to do now is find out where to vote.",
+        };
       } else {
         setUser({ isRegistered: false });
         setConvoState("idle");
-        return { role: "assistant", content: "No problem! Let us get you registered online. You just need to fill Form 6." };
+        return {
+          role: "assistant",
+          content: "No problem! Let us get you registered online. You just need to fill Form 6.",
+        };
       }
     } else {
-      if ((qLower.includes("want to vote") || qLower.includes("how to vote") || qLower.includes("can i vote")) && user.age === undefined) {
+      if (
+        (qLower.includes("want to vote") ||
+          qLower.includes("how to vote") ||
+          qLower.includes("can i vote")) &&
+        user.age === undefined
+      ) {
         setConvoState("awaiting_age_confirm");
-        return { role: "assistant", content: "I would love to help! Tell me, are you 18 or older?" };
+        return {
+          role: "assistant",
+          content: "I would love to help! Tell me, are you 18 or older?",
+        };
       }
       return { role: "assistant", content: "" }; // Will be handled by streaming
     }
@@ -225,7 +246,7 @@ const ChatAssistant = ({ open, onOpenChange, liveAgentOpen, onLiveAgentOpenChang
 
   const streamMessage = async (text: string) => {
     // Add an empty assistant message that we will populate
-    setMessages(prev => [...prev, { role: "assistant", content: "" }]);
+    setMessages((prev) => [...prev, { role: "assistant", content: "" }]);
     setTyping(true);
 
     try {
@@ -241,7 +262,7 @@ const ChatAssistant = ({ open, onOpenChange, liveAgentOpen, onLiveAgentOpenChang
       const decoder = new TextDecoder();
       let fullContent = "";
       let displayedContent = "";
-      
+
       const updateInterval = 40; // ms per word approx
 
       if (reader) {
@@ -258,21 +279,21 @@ const ChatAssistant = ({ open, onOpenChange, liveAgentOpen, onLiveAgentOpenChang
       const words = fullContent.split(" ");
       for (let i = 0; i < words.length; i++) {
         displayedContent += (i === 0 ? "" : " ") + words[i];
-        setMessages(prev => {
+        setMessages((prev) => {
           const newMessages = [...prev];
           newMessages[newMessages.length - 1].content = displayedContent;
           return newMessages;
         });
-        await new Promise(r => setTimeout(r, updateInterval));
+        await new Promise((r) => setTimeout(r, updateInterval));
       }
 
       setTyping(false);
-      
     } catch (error) {
       console.error("Streaming error:", error);
-      setMessages(prev => {
+      setMessages((prev) => {
         const newMessages = [...prev];
-        newMessages[newMessages.length - 1].content = "Sorry, I'm having trouble connecting to my brain right now. Please try again.";
+        newMessages[newMessages.length - 1].content =
+          "Sorry, I'm having trouble connecting to my brain right now. Please try again.";
         return newMessages;
       });
       setTyping(false);
@@ -282,10 +303,10 @@ const ChatAssistant = ({ open, onOpenChange, liveAgentOpen, onLiveAgentOpenChang
   const speak = (text: string) => {
     if (!synthesisRef.current || !window.SpeechSynthesisUtterance) return;
     synthesisRef.current.cancel();
-    
+
     const cleanText = text.replace(/\*\*/g, "");
     const utterance = new window.SpeechSynthesisUtterance(cleanText);
-    
+
     utterance.onstart = () => setVoiceState("speaking");
     utterance.onend = () => {
       setVoiceState("idle");
@@ -297,7 +318,11 @@ const ChatAssistant = ({ open, onOpenChange, liveAgentOpen, onLiveAgentOpenChang
   const stopLiveMode = () => {
     setVoiceState("idle");
     if (recognitionRef.current) {
-      try { recognitionRef.current.stop(); } catch(e) { /* ignore */ }
+      try {
+        recognitionRef.current.stop();
+      } catch (e) {
+        /* ignore */
+      }
     }
     if (synthesisRef.current) synthesisRef.current.cancel();
     if (silenceTimeoutRef.current) window.clearTimeout(silenceTimeoutRef.current);
@@ -308,20 +333,23 @@ const ChatAssistant = ({ open, onOpenChange, liveAgentOpen, onLiveAgentOpenChang
     resetSilenceTimeout();
     setMessages((m) => [...m, { role: "user", content: text }]);
     setVoiceState("processing");
-    
+
     if (!isElectionQuery(text)) {
-       const reply = { role: "assistant" as const, content: "I can only help with voting and elections." };
-       setMessages(m => [...m, reply]);
-       speak(reply.content);
-       return;
+      const reply = {
+        role: "assistant" as const,
+        content: "I can only help with voting and elections.",
+      };
+      setMessages((m) => [...m, reply]);
+      speak(reply.content);
+      return;
     }
 
     // Check for flow state messages (age/reg confirm)
     if (convoState !== "idle" || (text.toLowerCase().includes("vote") && user.age === undefined)) {
-       const reply = await processMessage(text);
-       setMessages(m => [...m, reply]);
-       speak(reply.content);
-       return;
+      const reply = await processMessage(text);
+      setMessages((m) => [...m, reply]);
+      speak(reply.content);
+      return;
     }
 
     await streamMessage(text);
@@ -329,7 +357,7 @@ const ChatAssistant = ({ open, onOpenChange, liveAgentOpen, onLiveAgentOpenChang
 
   const startRecognition = () => {
     if (!isSupported.current) return;
-    
+
     if (!recognitionRef.current) {
       const SpeechRecognitionClass = window.SpeechRecognition || window.webkitSpeechRecognition;
       recognitionRef.current = new SpeechRecognitionClass();
@@ -339,7 +367,7 @@ const ChatAssistant = ({ open, onOpenChange, liveAgentOpen, onLiveAgentOpenChang
     }
 
     const recognition = recognitionRef.current;
-    
+
     recognition.onstart = () => {
       setVoiceState("listening");
       resetSilenceTimeout();
@@ -347,7 +375,7 @@ const ChatAssistant = ({ open, onOpenChange, liveAgentOpen, onLiveAgentOpenChang
 
     recognition.onresult = (event: ISpeechRecognitionEvent) => {
       if (!event.results || !event.results[0]) return;
-      
+
       let finalTranscript = "";
       for (let i = 0; i < event.results.length; ++i) {
         if (event.results[i].isFinal) {
@@ -356,7 +384,7 @@ const ChatAssistant = ({ open, onOpenChange, liveAgentOpen, onLiveAgentOpenChang
       }
 
       if (finalTranscript) {
-        setInput((prev) => prev ? prev + " " + finalTranscript : finalTranscript);
+        setInput((prev) => (prev ? prev + " " + finalTranscript : finalTranscript));
       }
     };
 
@@ -381,19 +409,22 @@ const ChatAssistant = ({ open, onOpenChange, liveAgentOpen, onLiveAgentOpenChang
     if (!q) return;
     setMessages((m) => [...m, { role: "user", content: q }]);
     setInput("");
-    
+
     if (!isElectionQuery(q)) {
-      setMessages(m => [...m, { role: "assistant", content: "I can only help with voting and elections." }]);
+      setMessages((m) => [
+        ...m,
+        { role: "assistant", content: "I can only help with voting and elections." },
+      ]);
       return;
     }
 
     // Check for flow state messages
     if (convoState !== "idle" || (q.toLowerCase().includes("vote") && user.age === undefined)) {
-       setTyping(true);
-       const reply = await processMessage(q);
-       setMessages(m => [...m, reply]);
-       setTyping(false);
-       return;
+      setTyping(true);
+      const reply = await processMessage(q);
+      setMessages((m) => [...m, reply]);
+      setTyping(false);
+      return;
     }
 
     await streamMessage(q);
@@ -425,9 +456,7 @@ const ChatAssistant = ({ open, onOpenChange, liveAgentOpen, onLiveAgentOpenChang
                 </div>
                 <div>
                   <h3 className="font-display font-semibold">{t("chat.title")}</h3>
-                  <p className="text-xs text-primary-foreground/80">
-                    {t("chat.subtitle")}
-                  </p>
+                  <p className="text-xs text-primary-foreground/80">{t("chat.subtitle")}</p>
                 </div>
               </div>
             </div>
@@ -440,7 +469,10 @@ const ChatAssistant = ({ open, onOpenChange, liveAgentOpen, onLiveAgentOpenChang
           </div>
 
           {/* Message list */}
-          <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto bg-secondary/30 p-4 relative">
+          <div
+            ref={scrollRef}
+            className="flex-1 space-y-3 overflow-y-auto bg-secondary/30 p-4 relative"
+          >
             {messages.map((m, i) => (
               <div
                 key={i}
@@ -462,9 +494,7 @@ const ChatAssistant = ({ open, onOpenChange, liveAgentOpen, onLiveAgentOpenChang
                   ) : (
                     <div className="space-y-1">
                       <div className="flex items-start gap-2">
-                        <div className="flex-1 space-y-1">
-                          {renderContent(m.content)}
-                        </div>
+                        <div className="flex-1 space-y-1">{renderContent(m.content)}</div>
                         <SpeakButton text={m.content} className="-mt-1 -mr-2" />
                       </div>
                       {m.sources && m.sources.length > 0 && (
@@ -491,14 +521,14 @@ const ChatAssistant = ({ open, onOpenChange, liveAgentOpen, onLiveAgentOpenChang
                 </div>
               </div>
             )}
-            
+
             {voiceState === "speaking" && (
-               <div className="sticky bottom-0 flex justify-center pb-2 animate-in fade-in slide-in-from-bottom-2">
-                 <div className="rounded-full bg-accent/10 border border-accent/20 px-4 py-2 flex items-center gap-2 backdrop-blur shadow-soft">
-                   <Volume2 className="h-4 w-4 text-accent animate-pulse" />
-                   <span className="text-xs font-medium text-accent">Speaking...</span>
-                 </div>
-               </div>
+              <div className="sticky bottom-0 flex justify-center pb-2 animate-in fade-in slide-in-from-bottom-2">
+                <div className="rounded-full bg-accent/10 border border-accent/20 px-4 py-2 flex items-center gap-2 backdrop-blur shadow-soft">
+                  <Volume2 className="h-4 w-4 text-accent animate-pulse" />
+                  <span className="text-xs font-medium text-accent">Speaking...</span>
+                </div>
+              </div>
             )}
 
             {/* Typing / Processing indicator */}
@@ -544,8 +574,6 @@ const ChatAssistant = ({ open, onOpenChange, liveAgentOpen, onLiveAgentOpenChang
             )}
           </div>
 
-
-
           {/* Input form */}
           <form
             onSubmit={(e) => {
@@ -574,7 +602,7 @@ const ChatAssistant = ({ open, onOpenChange, liveAgentOpen, onLiveAgentOpenChang
                 </button>
               )}
             </div>
-            
+
             {input.trim() && (
               <Button
                 type="submit"

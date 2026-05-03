@@ -13,22 +13,29 @@ import { getUserInsights, type SeverityLevel } from "@/lib/userInsights";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
-const SEVERITY_STYLES: Record<SeverityLevel, { bg: string; text: string; icon: React.ElementType }> = {
+const SEVERITY_STYLES: Record<
+  SeverityLevel,
+  { bg: string; text: string; icon: React.ElementType }
+> = {
   info: { bg: "bg-primary/10", text: "text-primary", icon: Info },
-  warning: { bg: "bg-amber-500/10", text: "text-amber-700 dark:text-amber-400", icon: AlertTriangle },
+  warning: {
+    bg: "bg-amber-500/10",
+    text: "text-amber-700 dark:text-amber-400",
+    icon: AlertTriangle,
+  },
   critical: { bg: "bg-destructive/10", text: "text-destructive", icon: ShieldAlert },
 };
 
 const StatusWarnings = () => {
   const { user, setUser } = useUser();
   const insights = getUserInsights(user);
-  
+
   // Local session dismissals for specific risk messages
   const [dismissed, setDismissed] = useState<Set<string>>(new Set());
 
   const handleDismiss = (message: string) => {
     setDismissed((prev) => new Set([...prev, message]));
-    
+
     // Memory Intelligence (Phase 8): If dismissing an actionable risk, log a generic 'skip_warning' locally.
     // We avoid over-poluting skippedSteps, but track that they ignored a nudge.
     if (!user.skippedSteps.includes("warning_dismissed")) {
@@ -49,11 +56,7 @@ const StatusWarnings = () => {
   if (activeRisks.length === 0 && insights.suggestions.length === 0) return null;
 
   return (
-    <div
-      role="alert"
-      aria-live="polite"
-      className="space-y-1 border-b border-border/60"
-    >
+    <div role="alert" aria-live="polite" className="space-y-1 border-b border-border/60">
       {activeRisks.map((risk, idx) => {
         const style = SEVERITY_STYLES[risk.severity];
         const Icon = style.icon;
@@ -62,26 +65,30 @@ const StatusWarnings = () => {
         let actionBtn = null;
         if (risk.message.includes("not on the electoral roll")) {
           actionBtn = (
-             <Button 
-                variant="outline" 
-                size="sm" 
-                className={cn("h-7 text-xs border-current bg-transparent hover:bg-black/10 transition-colors ml-2")}
-                onClick={() => handleMicroAction("register")}
-              >
-                Start registration
-             </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              className={cn(
+                "h-7 text-xs border-current bg-transparent hover:bg-black/10 transition-colors ml-2",
+              )}
+              onClick={() => handleMicroAction("register")}
+            >
+              Start registration
+            </Button>
           );
         } else if (risk.message.includes("lack a verified EPIC")) {
           actionBtn = (
-            <Button 
-               variant="outline" 
-               size="sm" 
-               className={cn("h-7 text-xs border-current bg-transparent hover:bg-black/10 transition-colors ml-2")}
-               onClick={() => handleMicroAction("epic")}
-             >
-               Download e-EPIC
+            <Button
+              variant="outline"
+              size="sm"
+              className={cn(
+                "h-7 text-xs border-current bg-transparent hover:bg-black/10 transition-colors ml-2",
+              )}
+              onClick={() => handleMicroAction("epic")}
+            >
+              Download e-EPIC
             </Button>
-         );
+          );
         }
 
         return (
@@ -90,14 +97,12 @@ const StatusWarnings = () => {
             className={cn(
               "flex items-start justify-between gap-3 px-4 py-3 text-sm transition-all",
               style.bg,
-              style.text
+              style.text,
             )}
           >
             <div className="flex min-w-0 items-center justify-start max-w-full flex-wrap gap-2">
               <Icon className="h-4 w-4 shrink-0" aria-hidden />
-              <span className="leading-snug font-medium">
-                {risk.message}
-              </span>
+              <span className="leading-snug font-medium">{risk.message}</span>
               {actionBtn}
             </div>
             <button

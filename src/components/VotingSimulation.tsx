@@ -99,9 +99,7 @@ const VotingSimulation = () => {
 
   const currentStep = SIMULATION_STEPS[currentIndex];
   const isLastStep = currentIndex === SIMULATION_STEPS.length - 1;
-  const progress = Math.round(
-    (visitedSteps.size / SIMULATION_STEPS.length) * 100,
-  );
+  const progress = Math.round((visitedSteps.size / SIMULATION_STEPS.length) * 100);
 
   const markCurrentVisited = useCallback(() => {
     setVisitedSteps((prev) => new Set([...prev, SIMULATION_STEPS[currentIndex].id]));
@@ -149,11 +147,7 @@ const VotingSimulation = () => {
   );
 
   return (
-    <section
-      id="simulation"
-      className="container py-20"
-      aria-labelledby="simulation-heading"
-    >
+    <section id="simulation" className="container py-20" aria-labelledby="simulation-heading">
       <div className="mx-auto max-w-2xl text-center animate-fade-in-up">
         <div className="tricolor-bar mx-auto w-24 mb-5" aria-hidden />
         <h2 id="simulation-heading" className="font-display text-3xl font-bold md:text-4xl">
@@ -165,7 +159,6 @@ const VotingSimulation = () => {
       </div>
 
       <div className="mx-auto mt-10 max-w-2xl">
-
         {/* ---- Idle state ------------------------------------------------ */}
         {simState === "idle" && (
           <div className="animate-fade-in-up text-center rounded-3xl border border-border bg-card p-10 shadow-soft">
@@ -174,8 +167,8 @@ const VotingSimulation = () => {
             </div>
             <h3 className="font-display text-2xl font-bold">Ready to simulate?</h3>
             <p className="mt-3 text-muted-foreground">
-              Experience the full polling booth process — from entering to verifying your VVPAT
-              slip — in 4 guided steps.
+              Experience the full polling booth process — from entering to verifying your VVPAT slip
+              — in 4 guided steps.
             </p>
             <Button variant="hero" size="lg" className="mt-6" onClick={handleStart}>
               Start Simulation
@@ -205,15 +198,16 @@ const VotingSimulation = () => {
             </div>
 
             <div className="rounded-3xl border border-primary/20 bg-card p-8 shadow-elegant relative overflow-hidden">
-               {/* Phase 6 Adaptive Branching: Block Unregistered Users early at Step 1 or 2 */}
+              {/* Phase 6 Adaptive Branching: Block Unregistered Users early at Step 1 or 2 */}
               {user.isRegistered === false ? (
                 <div className="flex flex-col items-center justify-center text-center p-4">
                   <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-destructive/10 text-destructive mb-4">
-                     <ShieldAlert className="h-8 w-8" />
+                    <ShieldAlert className="h-8 w-8" />
                   </div>
                   <h3 className="font-display text-xl font-bold">Simulation Blocked</h3>
                   <p className="mt-3 text-muted-foreground">
-                    The Presiding Officer cannot find your name on the electoral roll. Because you are not registered, you are not allowed to cast a vote.
+                    The Presiding Officer cannot find your name on the electoral roll. Because you
+                    are not registered, you are not allowed to cast a vote.
                   </p>
                   <Button variant="outline" className="mt-6" onClick={handleReset}>
                     End Simulation
@@ -237,7 +231,7 @@ const VotingSimulation = () => {
                   {/* Description */}
                   <p className="mt-5 text-base text-foreground/90 leading-relaxed">
                     {/* Phase 6: Adaptive string if no EPIC */}
-                    {currentIndex === 1 && user.hasEpic === false 
+                    {currentIndex === 1 && user.hasEpic === false
                       ? "Because you don't have an EPIC, you present your Aadhaar or driving licence instead."
                       : currentStep.description}
                   </p>
@@ -305,9 +299,7 @@ const VotingSimulation = () => {
               <Button
                 variant="hero"
                 onClick={() =>
-                  document
-                    .getElementById("journey")
-                    ?.scrollIntoView({ behavior: "smooth" })
+                  document.getElementById("journey")?.scrollIntoView({ behavior: "smooth" })
                 }
               >
                 View Voter Journey

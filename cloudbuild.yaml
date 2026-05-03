@@ -1,0 +1,25 @@
+# Google Cloud Build — builds the VoteSetu container and pushes to Artifact Registry.
+# Wire this file as the Cloud Build config for automated CI/CD to Cloud Run.
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - "-t"
+      - "${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPOSITORY}/${_IMAGE}:${SHORT_SHA}"
+      - "."
+
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - "${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPOSITORY}/${_IMAGE}:${SHORT_SHA}"
+
+images:
+  - "${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPOSITORY}/${_IMAGE}:${SHORT_SHA}"
+
+substitutions:
+  _REGION: asia-south1
+  _AR_REPOSITORY: votesetu-containers
+  _IMAGE: votesetu
+
+options:
+  logging: CLOUD_LOGGING_ONLY

@@ -1,9 +1,5 @@
 import { BookMarked, ExternalLink } from "lucide-react";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useT } from "@/i18n/LanguageProvider";
 import { cn } from "@/lib/utils";
 import type { Source } from "@/data/electionData";

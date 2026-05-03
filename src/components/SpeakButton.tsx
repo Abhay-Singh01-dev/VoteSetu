@@ -10,12 +10,7 @@ interface SpeakButtonProps {
   size?: "default" | "sm" | "lg" | "icon";
 }
 
-const SpeakButton = ({
-  text,
-  className,
-  variant = "ghost",
-  size = "icon",
-}: SpeakButtonProps) => {
+const SpeakButton = ({ text, className, variant = "ghost", size = "icon" }: SpeakButtonProps) => {
   const [isSupported, setIsSupported] = useState(true);
   const [isSpeaking, setIsSpeaking] = useState(false);
 
@@ -47,7 +42,7 @@ const SpeakButton = ({
     window.speechSynthesis.cancel();
 
     const utterance = new SpeechSynthesisUtterance(text);
-    
+
     // Choose a friendly and slow-ish voice if available, otherwise default
     utterance.rate = 0.9;
     utterance.pitch = 1.0;
@@ -69,7 +64,7 @@ const SpeakButton = ({
       className={cn(
         "rounded-full transition-all duration-300",
         isSpeaking && "bg-primary/20 text-primary animate-pulse scale-110",
-        className
+        className,
       )}
       aria-label={isSpeaking ? "Stop speaking" : "Listen"}
       title={isSpeaking ? "Stop speaking" : "Listen"}

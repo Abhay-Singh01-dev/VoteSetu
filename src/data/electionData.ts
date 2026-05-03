@@ -52,10 +52,9 @@ export const timelinePhases: TimelinePhase[] = [
     glossary: [
       {
         term: "MCC",
-        definition: "Model Code of Conduct — guidelines for parties, candidates and governments during elections.",
-        sources: [
-          { label: "ECI · Model Code of Conduct", href: "https://www.eci.gov.in/mcc" },
-        ],
+        definition:
+          "Model Code of Conduct — guidelines for parties, candidates and governments during elections.",
+        sources: [{ label: "ECI · Model Code of Conduct", href: "https://www.eci.gov.in/mcc" }],
       },
       {
         term: "ECI",
@@ -83,7 +82,10 @@ export const timelinePhases: TimelinePhase[] = [
       { for: "voter", item: "Track which candidates are filing in your constituency" },
       { for: "voter", item: "Read Form 26 affidavits on the ECI / myneta sites" },
       { for: "candidate", item: "File nomination paper in person before the Returning Officer" },
-      { for: "candidate", item: "Deposit security amount (₹25,000 LS / ₹10,000 Assembly; halved for SC/ST)" },
+      {
+        for: "candidate",
+        item: "Deposit security amount (₹25,000 LS / ₹10,000 Assembly; halved for SC/ST)",
+      },
       { for: "candidate", item: "Submit Form 26 affidavit, fully filled — no blank fields" },
     ],
     keyDates: [
@@ -95,21 +97,25 @@ export const timelinePhases: TimelinePhase[] = [
         term: "Returning Officer (RO)",
         definition: "The officer in charge of conducting the election in a constituency.",
         sources: [
-          { label: "ECI · Handbook for Returning Officers", href: "https://www.eci.gov.in/handbooks-of-election-officers" },
+          {
+            label: "ECI · Handbook for Returning Officers",
+            href: "https://www.eci.gov.in/handbooks-of-election-officers",
+          },
         ],
       },
       {
         term: "Form 26",
         definition: "Mandatory affidavit on assets, liabilities, education and criminal cases.",
-        sources: [
-          { label: "ECI · Affidavit (Form 26)", href: "https://www.eci.gov.in/affidavit" },
-        ],
+        sources: [{ label: "ECI · Affidavit (Form 26)", href: "https://www.eci.gov.in/affidavit" }],
       },
       {
         term: "RP Act 1951",
         definition: "Representation of the People Act — the law governing elections in India.",
         sources: [
-          { label: "India Code · RP Act 1951", href: "https://www.indiacode.nic.in/handle/123456789/1676" },
+          {
+            label: "India Code · RP Act 1951",
+            href: "https://www.indiacode.nic.in/handle/123456789/1676",
+          },
         ],
       },
     ],
@@ -141,12 +147,16 @@ export const timelinePhases: TimelinePhase[] = [
         term: "Scrutiny",
         definition: "Verification of nomination papers for validity by the Returning Officer.",
         sources: [
-          { label: "RP Act 1951 · Section 36", href: "https://www.indiacode.nic.in/handle/123456789/1676" },
+          {
+            label: "RP Act 1951 · Section 36",
+            href: "https://www.indiacode.nic.in/handle/123456789/1676",
+          },
         ],
       },
       {
         term: "Symbol allotment",
-        definition: "Assignment of an election symbol to each candidate from a free or reserved list.",
+        definition:
+          "Assignment of an election symbol to each candidate from a free or reserved list.",
         sources: [
           { label: "ECI · Symbols Order 1968", href: "https://www.eci.gov.in/political-parties" },
         ],
@@ -181,15 +191,17 @@ export const timelinePhases: TimelinePhase[] = [
         term: "Silence period",
         definition: "The 48-hour quiet window before polling when public campaigning is banned.",
         sources: [
-          { label: "RP Act 1951 · Section 126", href: "https://www.indiacode.nic.in/handle/123456789/1676" },
+          {
+            label: "RP Act 1951 · Section 126",
+            href: "https://www.indiacode.nic.in/handle/123456789/1676",
+          },
         ],
       },
       {
         term: "cVIGIL",
-        definition: "ECI's citizen app to report MCC and expenditure violations with photo / video proof.",
-        sources: [
-          { label: "ECI · cVIGIL", href: "https://www.eci.gov.in/cvigil" },
-        ],
+        definition:
+          "ECI's citizen app to report MCC and expenditure violations with photo / video proof.",
+        sources: [{ label: "ECI · cVIGIL", href: "https://www.eci.gov.in/cvigil" }],
       },
     ],
   },
@@ -220,22 +232,22 @@ export const timelinePhases: TimelinePhase[] = [
       {
         term: "EVM",
         definition: "Electronic Voting Machine — replaces paper ballots in Indian elections.",
-        sources: [
-          { label: "ECI · EVM FAQs", href: "https://www.eci.gov.in/evm" },
-        ],
+        sources: [{ label: "ECI · EVM FAQs", href: "https://www.eci.gov.in/evm" }],
       },
       {
         term: "VVPAT",
-        definition: "Voter Verifiable Paper Audit Trail — prints a slip you can verify for 7 seconds.",
-        sources: [
-          { label: "ECI · VVPAT", href: "https://www.eci.gov.in/evm" },
-        ],
+        definition:
+          "Voter Verifiable Paper Audit Trail — prints a slip you can verify for 7 seconds.",
+        sources: [{ label: "ECI · VVPAT", href: "https://www.eci.gov.in/evm" }],
       },
       {
         term: "NOTA",
         definition: "None Of The Above — option to formally reject all candidates.",
         sources: [
-          { label: "Supreme Court · PUCL v UoI (2013)", href: "https://main.sci.gov.in/judgment/judis/40912.pdf" },
+          {
+            label: "Supreme Court · PUCL v UoI (2013)",
+            href: "https://main.sci.gov.in/judgment/judis/40912.pdf",
+          },
         ],
       },
     ],
@@ -267,21 +279,26 @@ export const timelinePhases: TimelinePhase[] = [
         term: "Form 21C",
         definition: "Certificate issued by the RO declaring the elected candidate.",
         sources: [
-          { label: "Conduct of Elections Rules 1961", href: "https://www.indiacode.nic.in/handle/123456789/15410" },
+          {
+            label: "Conduct of Elections Rules 1961",
+            href: "https://www.indiacode.nic.in/handle/123456789/15410",
+          },
         ],
       },
       {
         term: "Strong room",
-        definition: "Secure, sealed room where EVMs are stored under multi-layer security between poll and counting.",
-        sources: [
-          { label: "ECI · Strong room SOP", href: "https://www.eci.gov.in/instructions" },
-        ],
+        definition:
+          "Secure, sealed room where EVMs are stored under multi-layer security between poll and counting.",
+        sources: [{ label: "ECI · Strong room SOP", href: "https://www.eci.gov.in/instructions" }],
       },
       {
         term: "Election petition",
         definition: "Legal challenge to an election result, filed in the High Court of the state.",
         sources: [
-          { label: "RP Act 1951 · Part VI", href: "https://www.indiacode.nic.in/handle/123456789/1676" },
+          {
+            label: "RP Act 1951 · Part VI",
+            href: "https://www.indiacode.nic.in/handle/123456789/1676",
+          },
         ],
       },
     ],
@@ -302,14 +319,16 @@ export const voterJourney: (VoterStep & { advanced?: string })[] = [
     id: 1,
     title: "✅ Eligibility",
     description: "You must be 18+ and an Indian citizen.",
-    advanced: "According to the ECI, you must be an Indian citizen, 18+ on the qualifying date (1st January of the year), and a resident of the constituency.",
+    advanced:
+      "According to the ECI, you must be an Indian citizen, 18+ on the qualifying date (1st January of the year), and a resident of the constituency.",
     action: "Check age",
   },
   {
     id: 2,
     title: "📝 Register",
     description: "Fill online Form 6 to add your name.",
-    advanced: "Fill Form 6 online to be added to the electoral roll. First-time voters and people who shifted constituencies need this.",
+    advanced:
+      "Fill Form 6 online to be added to the electoral roll. First-time voters and people who shifted constituencies need this.",
     action: "Apply now",
     link: { label: "voters.eci.gov.in", href: "https://voters.eci.gov.in" },
   },
@@ -317,28 +336,32 @@ export const voterJourney: (VoterStep & { advanced?: string })[] = [
     id: 3,
     title: "🪪 Voter ID",
     description: "Get your ID card after your form is approved.",
-    advanced: "After verification by the Booth Level Officer, you receive your EPIC card. You can also download the e-EPIC PDF.",
+    advanced:
+      "After verification by the Booth Level Officer, you receive your EPIC card. You can also download the e-EPIC PDF.",
     action: "Get ID",
   },
   {
     id: 4,
     title: "📍 Polling Booth",
     description: "Find out exactly where to go on voting day.",
-    advanced: "Search using your EPIC number or mobile number to locate your assigned booth and Part Number on the roll.",
+    advanced:
+      "Search using your EPIC number or mobile number to locate your assigned booth and Part Number on the roll.",
     action: "Find booth",
   },
   {
     id: 5,
     title: "🎒 Carry ID",
     description: "Take your Voter ID or Aadhaar card with you.",
-    advanced: "Bring your EPIC or any one of the 12 alternative IDs accepted by ECI (Aadhaar, passport, PAN, driving licence, etc.).",
+    advanced:
+      "Bring your EPIC or any one of the 12 alternative IDs accepted by ECI (Aadhaar, passport, PAN, driving licence, etc.).",
     action: "Pack ID",
   },
   {
     id: 6,
     title: "🗳️ Vote",
     description: "Press the button, check the slip, cast your vote.",
-    advanced: "Verify name on the roll, get finger inked, sign the register, then press the EVM button next to your candidate. Check the VVPAT slip for 7 seconds.",
+    advanced:
+      "Verify name on the roll, get finger inked, sign the register, then press the EVM button next to your candidate. Check the VVPAT slip for 7 seconds.",
     action: "Vote",
   },
 ];
@@ -389,23 +412,17 @@ export const epicSteps: EpicStep[] = [
   {
     title: "Sign in or register",
     body: "Create an account using your mobile number and verify with the OTP.",
-    sources: [
-      { label: "ECI · Sign-up help", href: "https://voters.eci.gov.in/login" },
-    ],
+    sources: [{ label: "ECI · Sign-up help", href: "https://voters.eci.gov.in/login" }],
   },
   {
     title: "Search the electoral roll",
     body: "Use 'Search in Electoral Roll' — enter your name, date of birth and state, or simply your EPIC number.",
-    sources: [
-      { label: "Search in Electoral Roll", href: "https://electoralsearch.eci.gov.in" },
-    ],
+    sources: [{ label: "Search in Electoral Roll", href: "https://electoralsearch.eci.gov.in" }],
   },
   {
     title: "Download your e-EPIC",
     body: "Once your record appears, click 'Download e-EPIC'. It's a digital, PDF version of your Voter ID — fully valid as proof.",
-    sources: [
-      { label: "ECI · e-EPIC FAQs", href: "https://voters.eci.gov.in/download-eepic" },
-    ],
+    sources: [{ label: "ECI · e-EPIC FAQs", href: "https://voters.eci.gov.in/download-eepic" }],
   },
   {
     title: "Track your application",
@@ -440,7 +457,12 @@ export const epicMissingActions: EpicStep[] = [
   {
     title: "I don't have my EPIC on polling day",
     body: "You can still vote! Carry any one of the 12 ECI-approved alternative IDs (Aadhaar, passport, PAN, driving licence, MGNREGA card, etc.) — provided your name is on the electoral roll.",
-    sources: [{ label: "ECI Order · Alt IDs", href: "https://www.eci.gov.in/eci-backend/public/api/download?url=LMAhAK6sOPBp%2FNFF0iRfXbEB1EVSLT41NNLRjYNJJP1KivrUxbfqkDatmHy12e%2FzBiU51zPFZI5qMtjV1qgjFQ%3D%3D" }],
+    sources: [
+      {
+        label: "ECI Order · Alt IDs",
+        href: "https://www.eci.gov.in/eci-backend/public/api/download?url=LMAhAK6sOPBp%2FNFF0iRfXbEB1EVSLT41NNLRjYNJJP1KivrUxbfqkDatmHy12e%2FzBiU51zPFZI5qMtjV1qgjFQ%3D%3D",
+      },
+    ],
   },
 ];
 

@@ -20,7 +20,15 @@ import {
 // Types
 // ---------------------------------------------------------------------------
 
-export type ScreenType = "hero" | "timeline" | "journey" | "epic" | "chat" | "simulation" | "faq" | "none";
+export type ScreenType =
+  | "hero"
+  | "timeline"
+  | "journey"
+  | "epic"
+  | "chat"
+  | "simulation"
+  | "faq"
+  | "none";
 
 export type UserState = {
   age?: number;
@@ -68,25 +76,15 @@ function loadFromStorage(): UserState {
     if (typeof parsed !== "object" || parsed === null) return DEFAULT_USER;
     const obj = parsed as Record<string, unknown>;
     return {
-      age:
-        typeof obj.age === "number" && obj.age > 0 ? obj.age : undefined,
-      isRegistered:
-        typeof obj.isRegistered === "boolean" ? obj.isRegistered : undefined,
-      hasEpic:
-        typeof obj.hasEpic === "boolean" ? obj.hasEpic : undefined,
-      state:
-        typeof obj.state === "string" && obj.state.length > 0
-          ? obj.state
-          : undefined,
+      age: typeof obj.age === "number" && obj.age > 0 ? obj.age : undefined,
+      isRegistered: typeof obj.isRegistered === "boolean" ? obj.isRegistered : undefined,
+      hasEpic: typeof obj.hasEpic === "boolean" ? obj.hasEpic : undefined,
+      state: typeof obj.state === "string" && obj.state.length > 0 ? obj.state : undefined,
       completedSteps: Array.isArray(obj.completedSteps)
-        ? (obj.completedSteps as unknown[]).filter(
-            (s): s is string => typeof s === "string",
-          )
+        ? (obj.completedSteps as unknown[]).filter((s): s is string => typeof s === "string")
         : [],
       skippedSteps: Array.isArray(obj.skippedSteps)
-        ? (obj.skippedSteps as unknown[]).filter(
-            (s): s is string => typeof s === "string",
-          )
+        ? (obj.skippedSteps as unknown[]).filter((s): s is string => typeof s === "string")
         : [],
     };
   } catch {

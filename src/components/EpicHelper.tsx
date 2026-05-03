@@ -24,9 +24,7 @@ const EpicHelper = () => {
         <h2 id="epic-heading" className="font-display text-3xl font-bold md:text-4xl">
           {t("epic.heading")}
         </h2>
-        <p className="mt-3 text-muted-foreground">
-          {t("epic.subtitle")}
-        </p>
+        <p className="mt-3 text-muted-foreground">{t("epic.subtitle")}</p>
       </div>
 
       {/* EPIC validator */}
@@ -38,7 +36,10 @@ const EpicHelper = () => {
         {/* Steps to download */}
         <div className="rounded-3xl border border-border bg-gradient-card p-6 shadow-soft md:p-8">
           <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary" aria-hidden>
+            <div
+              className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary"
+              aria-hidden
+            >
               <CreditCard className="h-5 w-5" />
             </div>
             <div>
@@ -47,7 +48,7 @@ const EpicHelper = () => {
             </div>
           </div>
 
-          <ol className="mt-6 space-y-4" role="list">
+          <ol className="mt-6 space-y-4">
             {epicSteps.map((s, i) => (
               <li key={s.title} className="relative flex gap-4 rounded-2xl bg-card p-4 shadow-soft">
                 <span
@@ -80,7 +81,10 @@ const EpicHelper = () => {
         {/* What if you don't have it */}
         <Card className="rounded-3xl border-border p-6 shadow-soft md:p-8">
           <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent/10 text-accent" aria-hidden>
+            <div
+              className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent/10 text-accent"
+              aria-hidden
+            >
               <AlertCircle className="h-5 w-5" />
             </div>
             <div>
@@ -89,7 +93,7 @@ const EpicHelper = () => {
             </div>
           </div>
 
-          <ul className="mt-6 space-y-3" role="list">
+          <ul className="mt-6 space-y-3">
             {epicMissingActions.map((a) => (
               <li
                 key={a.title}
